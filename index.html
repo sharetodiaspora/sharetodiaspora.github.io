@@ -162,7 +162,7 @@
 			function redirect() {
 				if (title===""&&url==="") {
 					document.getElementsByTagName('body')[0].innerHTML = '';
-					location.href="/info";
+					location.href="/about";
 				} else {
 					if (localStorage["remember"] && localStorage["remember"] === "true") {
 						var rdurl = "http://"+localStorage["lastPod"]+"/bookmarklet?url="+encodeURIComponent(url)+"&title="+encodeURIComponent(title);
