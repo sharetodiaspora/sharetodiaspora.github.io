@@ -10,7 +10,7 @@
 -->
 <html>
 	<head>
-		<title>Share on Diaspora*</title>
+		<title>Share to Diaspora*</title>
 		<style>
 			body {
 				margin: 0;
@@ -59,7 +59,6 @@
 				padding: 8px 10px;
 			}	header h2 {
 					float: left;
-					display: inline;
 					font-size: inherit;
 					font-weight: inherit;
 					border-right: 1px solid #aaa;
@@ -171,9 +170,16 @@
 				div.bot_opt :checked + label {
 					color: #060;
 				}
-			.hideopt {
-				display: none;
-			}
+			.advanced {
+				padding: 10px 0 0 20px;
+			}	.hideopt {
+					display: none;
+				}
+				#contopt {
+					apadding-top: 6px;
+				}	.opttit {
+						font-size: 13px;
+					}
 		</style>
 		<script type="text/javascript">
 			function par(name){ // Function "par" from Netlobo.com (http://www.netlobo.com/url_query_string_javascript.html)
@@ -208,8 +214,13 @@
 						if (!(localStorage["remember"] && localStorage["remember"] === "false")) {
 							document.getElementById('remember').checked='checked';
 						}
-						document.getElementById('sharetitle').innerHTML = title;
-						document.getElementById('shareurl').innerHTML = url;
+						if (document.getElementsByTagName('body')[0].innerText) {
+							document.getElementById('sharetitle').innerText = title;
+							document.getElementById('shareurl').innerText = url;
+						} else {
+							document.getElementById('sharetitle').textContent = title;
+							document.getElementById('shareurl').textContent = url;
+						}
 						crealinks();
 						return false;
 					}
@@ -316,13 +327,13 @@
 			<a class="dpod" title="diasp.org">diasp.org</a>
 			<a class="dpod" title="pod.geraspora.de">pod.geraspora.de</a>
 			<a class="dpod" title="my-seed.com">my-seed.com</a>
-			<a class="dpod" title="the.diasperse.com">the.diasperse.com</a>
-			<a class="dpod" title="mul.tiver.se">mul.tiver.se</a>
 			<a class="dpod" title="poddery.com">poddery.com</a>
 			<a class="dpod" title="ilikefreedom.org">ilikefreedom.org</a>
 			<a class="dpod" title="despora.de">despora.de</a>
 			<a class="dpod" title="despora.at">despora.at</a>
 			<a class="dpod" title="londondiaspora.org">londondiaspora.org</a>
+			<a class="dpod" title="ottospora.nl">ottospora.nl</a>
+			<a class="dpod" title="ser.endipito.us">ser.endipito.us</a>
 		</section>
 		<section id="podinput">
 			<h3>or introduce your pod URL</h3>
@@ -337,7 +348,9 @@
 		<div class="advanced">
 			<a class="openao" id="openao">Advanced options</a>
 			<div class="hideopt" id="contopt">
-				<span class="check"><input type="checkbox" id="markdown" /><label for="markdown">Use Markdown syntax for link</label></span>
+				<span class="opttit">Advanced options</span><br />
+				<input type="checkbox" id="markdown" /><label for="markdown">Use Markdown syntax for link</label><br />
+				<input type="checkbox" id="shorten" /><label for="shorten">Shorten URL (j.mp)</label>
 			</div>
 		</div>
 	</body>
