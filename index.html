@@ -208,8 +208,8 @@
 						if (!(localStorage["remember"] && localStorage["remember"] === "false")) {
 							document.getElementById('remember').checked='checked';
 						}
-						document.getElementById('sharetitle').innerText = title;
-						document.getElementById('shareurl').innerText = url;
+						document.getElementById('sharetitle').innerHTML = title;
+						document.getElementById('shareurl').innerHTML = url;
 						crealinks();
 						return false;
 					}
@@ -313,8 +313,8 @@
 		<section id="podlist">
 			<h3>Choose your Diaspora* pod</h3>
 			<a class="dpod" title="joindiaspora.com" id="first">joindiaspora.com</a>
-			<a class="dpod" title="pod.geraspora.de">pod.geraspora.de</a>
 			<a class="dpod" title="diasp.org">diasp.org</a>
+			<a class="dpod" title="pod.geraspora.de">pod.geraspora.de</a>
 			<a class="dpod" title="my-seed.com">my-seed.com</a>
 			<a class="dpod" title="the.diasperse.com">the.diasperse.com</a>
 			<a class="dpod" title="mul.tiver.se">mul.tiver.se</a>
