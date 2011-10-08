@@ -19,6 +19,22 @@
 				font-size: 15px;
 				max-height: 100%;
 			}
+			a {
+				color: #3F8FBA;
+				text-decoration: none;
+				-webkit-transition: opacity .1s ease;
+				-moz-transition: opacity .1s ease;
+				-o-transition: opacity .1s ease;
+				transition: opacity .1s ease;
+				cursor: pointer;
+			}
+			a.openao {
+				font-size: 13px;
+			}
+			a:hover {
+				opacity: .85;
+				text-decoration: underline;
+			}
 			span.clear {
 				clear: both;
 				display: block;
@@ -34,8 +50,8 @@
 				-moz-box-shadow: 0 0 2px #777;
 				box-shadow: 0 0 2px #777;
 				background-image: rgba(35,30,30,0.975);
-				filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=rgb(35, 30, 30),endColorstr=#231e1e);
-				-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=rgba(35, 30, 30, 0.95), endColorstr=#231e1e)";
+				//filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=rgb(35, 30, 30),endColorstr=#231e1e);
+				//-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=rgba(35, 30, 30, 0.95), endColorstr=#231e1e)";
 				background-image: -webkit-gradient(linear,0% 0,0% 100%,from(rgba(35,30,30,0.95)),to(#231e1e));
 				background-image: -moz-linear-gradient(top,rgba(35,30,30,0.95) 0,#231e1e 100%);
 				background-image: -o-linear-gradient(top,rgba(35,30,30,0.95) 0,#231e1e 100%);
@@ -50,11 +66,11 @@
 					padding: .6em 20px .6em 10px;
 					margin: 0;
 				}
-				header #share_det {
+				header #sharedet {
 					text-align: center;
 					margin: 0;
 					width: auto;
-				}	header #share_det div {
+				}	header #sharedet div {
 						display: block;
 						height: 1.2em;
 						max-height: 1.2em;
@@ -63,8 +79,9 @@
 						text-overflow: ellipsis;
 						-o-text-overflow: ellipsis;
 						padding: 0 10px 0 20px;
+						color: #dadada;
 					}
-					header #share_det #share_title {
+					header #sharedet #sharetitle {
 						font-weight: bold;
 					}
 			section {
@@ -86,15 +103,27 @@
 					padding: 3px 6px;
 					margin: 0 0 6px 0;
 					text-decoration: none;
-					color: #222;
+					color: #444;
 					-webkit-transition: border .2s ease, color .2s ease;
 					-moz-transition: border .2s ease, color .2s ease;
 					-o-transition: border .2s ease, color .2s ease;
 					transition: border .2s ease, color .2s ease;
-				}	section#podlist a:hover {
-						border: 1px solid #ccc;
-						color: #000;
-					}
+				}
+				section#podlist a.lastpod {
+					border-color: #bbcad0;
+					color: #222;
+				}
+				section#podlist a:hover {
+					border: 1px solid #888;
+					color: #000;
+				}
+			section#podinput {
+			
+			}	section#podinput #podurl {
+					width: 200px;
+					padding: 2px 4px;
+					font-size: 15px;
+				}
 			span.check {
 				display: inline-block;
 				background: #f5f5f5;
@@ -142,6 +171,9 @@
 				div.bot_opt :checked + label {
 					color: #060;
 				}
+			.hideopt {
+				display: none;
+			}
 		</style>
 		<script type="text/javascript">
 			function par(name){ // Function "par" from Netlobo.com (http://www.netlobo.com/url_query_string_javascript.html)
@@ -157,27 +189,27 @@
 			
 			var title = decodeURIComponent(par('title'));
 			var url = decodeURIComponent(par('url'));
-			if (decodeURIComponent(par('notes')) !== "") { var notes = decodeURIComponent(par('notes')); };
+			if (par('notes') !== "") { var notes = decodeURIComponent(par('notes')); };
 			
 			function redirect() {
 				if (title===""&&url==="") {
 					document.getElementsByTagName('body')[0].innerHTML = '';
-					location.href="/about";
+					location.href="about";
 				} else {
 					if (localStorage["remember"] && localStorage["remember"] === "true") {
 						var rdurl = "http://"+localStorage["lastPod"]+"/bookmarklet?url="+encodeURIComponent(url)+"&title="+encodeURIComponent(title);
 						if (notes) { rdurl += "&notes="+encodeURIComponent(notes); }
 						rdurl += "&jump=doclose";
 						
-						if (confirm("¿Compartir en "+localStorage["lastPod"]+"?")) {location.href = url;} else { localStorage["remember"] = "false"; location.reload(true); }
+						if (confirm("Share to "+localStorage["lastPod"]+"?")) {location.href = url;} else { localStorage["remember"] = "false"; location.reload(true); }
 						
 						return true;
 					} else {
 						if (!(localStorage["remember"] && localStorage["remember"] === "false")) {
 							document.getElementById('remember').checked='checked';
 						}
-						document.getElementById('share_title').innerText = title;
-						document.getElementById('share_url').innerText = url;
+						document.getElementById('sharetitle').innerText = title;
+						document.getElementById('shareurl').innerText = url;
 						crealinks();
 						return false;
 					}
@@ -188,12 +220,64 @@
 			function crealinks(m) {
 				var pods = document.getElementsByClassName('dpod');
 				
+				if (localStorage['lastPod']) {
+					var p = localStorage['lastPod'];
+					var an = document.createElement('a');
+					an.className = 'dpod lastpod';
+					an.title = p;
+					an.innerText = p;
+					
+					for (i=0;i<pods.length;i++) {
+						if (pods[i].title === p) {
+							pods[i].style.display = 'none';
+						}
+					}
+					
+					document.getElementById('podlist').insertBefore(an, document.getElementById('first'));
+					
+					if (localStorage['lastPod2']) {
+						var p = localStorage['lastPod2'];
+						var an = document.createElement('a');
+						an.className = 'dpod lastpod';
+						an.title = p;
+						an.innerText = p;
+						
+						for (i=0;i<pods.length;i++) {
+							if (pods[i].title === p) {
+								pods[i].style.display = 'none';
+							}
+						}
+						
+						document.getElementById('podlist').insertBefore(an, document.getElementById('first'));
+						
+						if (localStorage['lastPod3']) {
+							var p = localStorage['lastPod3'];
+							var an = document.createElement('a');
+							an.className = 'dpod lastpod';
+							an.title = p;
+							an.innerText = p;
+							
+							for (i=0;i<pods.length;i++) {
+								if (pods[i].title === p) {
+									pods[i].style.display = 'none';
+								}
+							}
+							
+							document.getElementById('podlist').insertBefore(an, document.getElementById('first'));
+						}
+					}
+				}
+				
+				pods = document.getElementsByClassName('dpod');
+				
 				for (i=0;i<pods.length;i++) {
 					pods[i].href = "http://"+pods[i].title+"/bookmarklet?url="+encodeURIComponent(url)+"&title="+encodeURIComponent(title)+"&jump=doclose";
 					pods[i].onclick = function() {
 						recuerda(this.title);
 					};
 				}
+				
+				document.getElementById('openao').onclick = function() { document.getElementById('contopt').className="showopt"; document.getElementById('openao').style.display='none'; }
 			}
 			
 			function recuerda(l) {
@@ -203,25 +287,32 @@
 				} else {
 					localStorage["remember"] = "false";
 				}
+				
+				if (localStorage["lastPod"] && localStorage["lastPod"]!==l) {
+					if (localStorage["lastPod2"] && localStorage["lastPod2"]!==l) {
+						localStorage["lastPod3"] = localStorage["lastPod2"];
+					}
+					localStorage["lastPod2"] = localStorage["lastPod"];
+				}
 				localStorage["lastPod"] = l;
+				
 				return true;
 			}
 			
-			//window.onbeforeunload = function() { recuerda(); };
 			window.onload = function() { redirect() };
 		</script>
 	</head>
 	<body>
 		<header>
 			<h2>Sharing</h2>
-			<div id="share_det">
-				<div id="share_title"></div>
-				<div id="share_url"></div>
+			<div id="sharedet">
+				<div id="sharetitle"></div>
+				<div id="shareurl"></div>
 			</div>
 		</header>
 		<section id="podlist">
 			<h3>Choose your Diaspora* pod</h3>
-			<a class="dpod" title="joindiaspora.com">joindiaspora.com</a>
+			<a class="dpod" title="joindiaspora.com" id="first">joindiaspora.com</a>
 			<a class="dpod" title="pod.geraspora.de">pod.geraspora.de</a>
 			<a class="dpod" title="diasp.org">diasp.org</a>
 			<a class="dpod" title="my-seed.com">my-seed.com</a>
@@ -244,7 +335,10 @@
 			<input type="checkbox" id="remember" /><label for="remember">Remember my choice, don't ask again</label>
 		</div>
 		<div class="advanced">
-			<span class="check"><input type="checkbox" id="markdown" /><label for="markdown">Use Markdown syntax for link</label></span>
+			<a class="openao" id="openao">Advanced options</a>
+			<div class="hideopt" id="contopt">
+				<span class="check"><input type="checkbox" id="markdown" /><label for="markdown">Use Markdown syntax for link</label></span>
+			</div>
 		</div>
 	</body>
 </html>
