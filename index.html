@@ -118,10 +118,30 @@
 				}
 			section#podinput {
 			
-			}	section#podinput #podurl {
+			}	#podurl {
 					width: 200px;
-					padding: 2px 4px;
+					padding: 3px 6px;
+					margin: 0;
 					font-size: 15px;
+					border: 1px solid silver;
+					-webkit-transition: .1s border-color ease;
+					-moz-transition: .1s border-color ease;
+					-o-transition: .1s border-color ease;
+					transition: .1s border-color ease;
+				}
+				#podurl:focus {
+					border: 1px solid #bbcad0;
+				}
+				#podurlsm {
+					margin: 0;
+					margin-top: 6px;
+					padding: 4px 10px;
+				}
+				:focus {
+					outline: none;
+				}
+				input.error, input#podurl.error {
+					border: 1px solid #a00;
 				}
 			span.check {
 				display: inline-block;
@@ -195,7 +215,7 @@
 			
 			var title = decodeURIComponent(par('title'));
 			var url = decodeURIComponent(par('url'));
-			if (par('notes') !== "") { var notes = decodeURIComponent(par('notes')); };
+			var notes = decodeURIComponent(par('notes'));
 			
 			function redirect() {
 				if (title===""&&url==="") {
@@ -204,7 +224,7 @@
 				} else {
 					if (localStorage["remember"] && localStorage["remember"] === "true") {
 						var rdurl = "http://"+localStorage["lastPod"]+"/bookmarklet?url="+encodeURIComponent(url)+"&title="+encodeURIComponent(title);
-						if (notes) { rdurl += "&notes="+encodeURIComponent(notes); }
+						if (notes!=="") { rdurl += "&notes="+encodeURIComponent(notes); }
 						rdurl += "&jump=doclose";
 						
 						if (confirm("Share to "+localStorage["lastPod"]+"?")) {location.href = url;} else { localStorage["remember"] = "false"; location.reload(true); }
@@ -228,7 +248,7 @@
 				
 			}
 			
-			function crealinks(m) {
+			function crealinks() {
 				var pods = document.getElementsByClassName('dpod');
 				
 				if (localStorage['lastPod']) {
@@ -282,7 +302,11 @@
 				pods = document.getElementsByClassName('dpod');
 				
 				for (i=0;i<pods.length;i++) {
-					pods[i].href = "http://"+pods[i].title+"/bookmarklet?url="+encodeURIComponent(url)+"&title="+encodeURIComponent(title)+"&jump=doclose";
+					var purl = "http://"+pods[i].title+"/bookmarklet?url="+encodeURIComponent(url)+"&title="+encodeURIComponent(title);
+					if (notes!=="") { purl += "&notes="+encodeURIComponent(notes); }
+					purl += "&jump=doclose";
+					pods[i].href = purl;
+					
 					pods[i].onclick = function() {
 						recuerda(this.title);
 					};
@@ -308,6 +332,20 @@
 				localStorage["lastPod"] = l;
 				
 				return true;
+			}
+			
+			function share(u) {
+				if (u!=="") {
+					recuerda(u);
+					var nu = "http://"+u+"/bookmarklet?url="+encodeURIComponent(url)+"&title="+encodeURIComponent(title);
+					if (notes!=="") { nu += "&notes="+encodeURIComponent(notes); }
+					nu += "&jump=doclose";
+					location.href = nu;
+					
+				//	return false;
+				} else {
+					document.getElementById('podurl').className="error";
+				}
 			}
 			
 			window.onload = function() { redirect() };
@@ -338,8 +376,10 @@
 		<section id="podinput">
 			<h3>or introduce your pod URL</h3>
 			
-			<input type="text" id="podurl" placeholder="Example: joindiaspora.com" /><br />
-			<input type="submit" id="podurlsm" value="Submit" />
+			<form onsubmit="share(document.getElementById('podurl').value); return false;">
+				<input type="text" id="podurl" placeholder="Example: joindiaspora.com" value="" /><br />
+				<input type="submit" id="podurlsm" value="Submit" />
+			</form>
 		</section>
 		<span class="clear"></span>
 		<div class="bot_opt">
@@ -348,9 +388,9 @@
 		<div class="advanced">
 			<a class="openao" id="openao">Advanced options</a>
 			<div class="hideopt" id="contopt">
-				<span class="opttit">Advanced options</span><br />
-				<input type="checkbox" id="markdown" /><label for="markdown">Use Markdown syntax for link</label><br />
-				<input type="checkbox" id="shorten" /><label for="shorten">Shorten URL (j.mp)</label>
+				<span class="opttit">Advanced options (soon available!)</span><br />
+				<!--<input type="checkbox" id="markdown" />--><label for="markdown">Use Markdown syntax for link</label><br />
+				<!--<input type="checkbox" id="shorten" />--><label for="shorten">Shorten URL (j.mp)</label>
 			</div>
 		</div>
 	</body>
