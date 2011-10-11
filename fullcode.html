@@ -223,6 +223,7 @@
 			var title = decodeURIComponent(par('title'));
 			var url = decodeURIComponent(par('url'));
 			var notes = decodeURIComponent(par('notes'));
+			var redir = decodeURIComponent(par('redirect'));
 			var oldtit = title;
 			var oldurl = url;
 			var oldnot = notes;
@@ -232,7 +233,7 @@
 					document.getElementsByTagName('body')[0].innerHTML = '';
 					location.href="about";
 				} else {
-					if (localStorage["remember"] && localStorage["remember"] === "true" && localStorage["lastPod"]) {
+					if (localStorage["remember"] && localStorage["remember"] === "true" && localStorage["lastPod"] && redir !== "false") {
 						document.getElementsByTagName('body')[0].innerHTML="Sharing <b>"+title+"</b> ("+url+") to "+localStorage["lastPod"];
 					
 						var rdurl = "http://"+localStorage["lastPod"]+"/bookmarklet?url="+encodeURIComponent(url)+"&title="+encodeURIComponent(title);
