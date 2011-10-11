@@ -232,12 +232,14 @@
 					document.getElementsByTagName('body')[0].innerHTML = '';
 					location.href="about";
 				} else {
-					if (localStorage["remember"] && localStorage["remember"] === "true") {
+					if (localStorage["remember"] && localStorage["remember"] === "true" && localStorage["lastPod"]) {
+						document.getElementsByTagName('body')[0].innerHTML="Sharing <b>"+title+"</b> ("+url+") to "+localStorage["lastPod"];
+					
 						var rdurl = "http://"+localStorage["lastPod"]+"/bookmarklet?url="+encodeURIComponent(url)+"&title="+encodeURIComponent(title);
 						if (notes!=="") { rdurl += "&notes="+encodeURIComponent(notes); }
 						rdurl += "&jump=doclose";
 						
-						if (confirm("Share to "+localStorage["lastPod"]+"?")) {location.href = url;} else { localStorage["remember"] = "false"; location.reload(true); }
+						location.href = rdurl;
 						
 						return true;
 					} else {
