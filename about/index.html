@@ -44,7 +44,6 @@
 					display: inline-block;
 					font-size: inherit;
 					font-weight: inherit;
-					border-right: 1px solid #aaa;
 					padding: .6em 20px .6em 10px;
 					margin: 0;
 				}
@@ -65,14 +64,53 @@
 					header #share_det #share_title {
 						font-weight: bold;
 					}
+			a {
+				color: #48a;
+				text-decoration: none;
+			}	a:hover {
+					text-decoration: underline;
+				}
+			article {
+				padding: 16px 20px 6px;
+				max-width: 960px;
+				min-width: 650px;
+				margin: 0 auto;
+			}	article pre {
+					background: #eee;
+					overflow: auto;
+					padding: 5px 8px;
+					border: 1px solid #ccc;
+					font-size: 14px;
+					font-family: Courier New, monospace;
+				}	article pre span {
+						color: #b44;
+					}
+				article .testsh {
+					
+				}
+				article h4 {
+					margin-bottom: .2em;
+				}
+				article ul {
+					margin-top: .2em;
+				}
+				article .exp {
+					font-style: italic;
+					color: #666;
+				}
 			footer {
 				padding: 6px 10px;
-				margin: 6px 10px;
+				margin: 26px 10px 6px;
 				border-top: 1px solid #ccc;
 				color: #888;
 				font-size: 13px;
 				line-height: 1.4em;
-			}	footer a {
+			}	footer>div {
+					max-width: 960px;
+					min-width: 650px;
+					margin: 0 auto;
+				}
+				footer a {
 					color: #448;
 					text-decoration: none;
 				}
@@ -85,10 +123,58 @@
 		<header>
 			<h2>Diaspora* Advanced Sharer</h2>
 		</header>
+		<article>
+			Diaspora* Advanced Sharer is a service to share links to any Diaspora* pod.<p>
+			<h3>Features</h3>
+			<ul>
+				<li>Share on any Diaspora* pod, with a default pod list for faster sharing.</li>
+				<li>Remember the last 3 chosen pods, and add/move them to the top of the list. This feature can be disabled if desired.</li>
+				<li>Optional URL shortening (via <a href="http://j.mp">j.mp</a>).</li>
+				<li>Optional Markdown formatting.</li>
+			</ul>
+			<h3>Privacy</h3>
+			D*AS doesn't track or obtain any information from the user. As it is hosted on Github, Github may track the user's IP address. Pods are stored on the user's browser localStorage. The shared URL is passed to J.mp (from Bit.ly) only if URL shortening is enabled.
+			<h3>Sharing buttons</h3>
+			These are templates for sharing buttons that you can use in you website or blog.
+			<h4>Normal website</h4>
+			<span class="exp">Copy this HTML code where you want the button to appear.</span><p>
+			Without Javascript:<p>
+			<a class="testsh" href="javascript:window.open('http://sharetodiaspora.github.com/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550');">
+	<img src="https://joindiaspora.com/favicon.png" />
+</a><pre>&lt;a href="http://sharetodiaspora.github.com/?title=<span>Your title here</span>&url=<span>http://www.example.com/some/path</span>">
+	&lt;img src="https://joindiaspora.com/favicon.png" />
+&lt;/a></pre><p>
+			With Javascript:<p>
+			<a class="testsh" href="javascript:window.open('http://sharetodiaspora.github.com/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550');">
+	<img src="https://joindiaspora.com/favicon.png" /></a><pre>&lt;a href="javascript:window.open('http://sharetodiaspora.github.com/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550');">
+	&lt;img src="https://joindiaspora.com/favicon.png" />
+&lt;/a></pre><p>
+			Alternative version (with text):<p>
+			<a class="testsh" href="javascript:window.open('http://sharetodiaspora.github.com/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550');" style="padding: 3px 4px 2px; background: #fafafa; border: 1px solid #ddd; font-size: 13px; color: #222; text-decoration: none; vertical-align: top;">
+	<img src="https://joindiaspora.com/favicon.png" /> Diaspora*</a><pre>&lt;a href="javascript:window.open('http://sharetodiaspora.github.com/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550');"
+   style="padding: 3px 4px 2px; background: #fafafa; border: 1px solid #ddd; font-size: 13px; color: #222; text-decoration: none; vertical-align: top;">
+	&lt;img src="https://joindiaspora.com/favicon.png" /> Diaspora*
+&lt;/a></pre>
+			
+			<h4>Blogger blogs</h4>
+			<span class="exp">This method will include a Diaspora* share button next to Google +1 button. It is necessary to <a href="http://buzz.blogger.com/2010/06/new-share-buttons.html">enable the sharing buttons</a>.</span>
+			<ul>
+				<li>Enter <a href="http://www.blogger.com/home">your dashboard</a> and choose your blog.</li>
+				<li>In section <b>Template</b>, click on <b>Edit HTML</b>. If a warning appears, click <b>Continue</b>.</li>
+				<li>Check <b>Expand widget templates</b>, press Ctrl+F and write <i>sharebuttons</i>.</li>
+				<li>Find the line <code>&lt;b:includable id='shareButtons' var='post'></code>. Just after that, copy the following code:</li>
+			</ul>
+			<pre>&lt;a expr:href='&quot;http://sharetodiaspora.github.com/?url=&quot; + data:post.url + &quot;&amp;title=&quot; + data:post.title' target='_blank' title='Share on Diaspora'>
+	&lt;img src='http://joindiaspora.com/favicon.png' style='width:16px; height:16px; padding:0; border:0; vertical-align:middle;'/>
+&lt;/a></pre>
+		</article>
 		<footer>
-			by <a href="http://dia.so/bartimeo">Bartimeo</a><br />
-			based on <a href="http://basshero.org/page/show/dss">Diaspora* Sharing Service</a> by <a href="https://joindiaspora.com/u/jaywink">Jason Robinson</a><br />
-			Diaspora* Advanced Sharer code is available at <a href="https://github.com/sharetodiaspora/sharetodiaspora.github.com">Github</a>. You are free to copy, modify and distribute it.
+			<div>
+				by <a href="http://dia.so/bartimeo">Bartimeo</a><br />
+				based on <a href="http://basshero.org/page/show/dss">Diaspora* Sharing Service</a> by <a href="https://joindiaspora.com/u/jaywink">Jason Robinson</a><br />
+				Diaspora* Advanced Sharer code is available at <a href="https://github.com/sharetodiaspora/sharetodiaspora.github.com">Github</a>. You are free to copy, modify and distribute it.
+			</div>
+			
 		</footer>
 	</body>
 </html>
