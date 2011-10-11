@@ -134,6 +134,8 @@
 			</ul>
 			<h3>Privacy</h3>
 			D*AS doesn't track or obtain any information from the user. As it is hosted on Github, Github may track the user's IP address. Pods are stored on the user's browser localStorage. The shared URL is passed to J.mp (from Bit.ly) only if URL shortening is enabled.
+			<h3>Bookmarklet</h3>
+			Instead of using several bookmarklets for several pods, you can just drag this one: <a href="javascript:(function(){f='http://sharetodiaspora.github.com/?url='+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent(document.title)+'&notes='+encodeURIComponent(''+(window.getSelection?window.getSelection():document.getSelection?document.getSelection():document.selection.createRange().text))+'&v=1&';a=function(){if(!window.open(f+'noui=1&jump=doclose','diasporav1','location=yes,links=no,scrollbars=no,toolbar=no,width=620,height=250'))location.href=f+'jump=yes'};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()">Share to Diaspora*</a> to your bookmarks bar.
 			<h3>Sharing buttons</h3>
 			These are templates for sharing buttons that you can use in you website or blog.
 			<h4>Normal website</h4>
