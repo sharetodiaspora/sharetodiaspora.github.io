@@ -209,7 +209,7 @@
 					}
 		</style>
 		<script type="text/javascript">
-			function par(name){ // Function "par" from Netlobo.com (http://www.netlobo.com/url_query_string_javascript.html)
+			function par(name){ /* Function "par" from Netlobo.com (http://www.netlobo.com/url_query_string_javascript.html) */
 				var regexS = "[\\?&]"+name+"=([^&#]*)";
 				var regex = new RegExp ( regexS );
 				var tmpURL = window.location.href;
@@ -223,6 +223,9 @@
 			var title = decodeURIComponent(par('title'));
 			var url = decodeURIComponent(par('url'));
 			var notes = decodeURIComponent(par('notes'));
+			var oldtit = title;
+			var oldurl = url;
+			var oldnot = notes;
 			
 			function redirect() {
 				if (title===""&&url==="") {
@@ -238,9 +241,6 @@
 						
 						return true;
 					} else {
-						if (!(localStorage["remember"] && localStorage["remember"] === "false")) {
-							document.getElementById('remember').checked='checked';
-						}
 						if (document.getElementsByTagName('body')[0].innerText) {
 							document.getElementById('sharetitle').innerText = title;
 							document.getElementById('shareurl').innerText = url;
@@ -258,27 +258,11 @@
 			function crealinks() {
 				var pods = document.getElementsByClassName('dpod');
 				
-				if (localStorage['lastPod']) {
-					var p = localStorage['lastPod'];
-					var an = document.createElement('a');
-					an.className = 'dpod lastpod';
-					an.title = p;
-					if (document.getElementsByTagName('body')[0].innerText) {
-						an.innerText = p;
-					} else {
-						an.textContent = p;
-					}
-					
-					for (i=0;i<pods.length;i++) {
-						if (pods[i].title === p) {
-							pods[i].className = 'dpod hidepod';
-						}
-					}
-					
-					document.getElementById('podlist').insertBefore(an, document.getElementById('first'));
-					
-					if (localStorage['lastPod2']) {
-						var p = localStorage['lastPod2'];
+				if (localStorage['forget'] === 'true') {
+					document.getElementById('norem').checked='checked';
+				} else {
+					if (localStorage['lastPod']) {
+						var p = localStorage['lastPod'];
 						var an = document.createElement('a');
 						an.className = 'dpod lastpod';
 						an.title = p;
@@ -296,8 +280,8 @@
 						
 						document.getElementById('podlist').insertBefore(an, document.getElementById('first'));
 						
-						if (localStorage['lastPod3']) {
-							var p = localStorage['lastPod3'];
+						if (localStorage['lastPod2']) {
+							var p = localStorage['lastPod2'];
 							var an = document.createElement('a');
 							an.className = 'dpod lastpod';
 							an.title = p;
@@ -314,11 +298,82 @@
 							}
 							
 							document.getElementById('podlist').insertBefore(an, document.getElementById('first'));
+							
+							if (localStorage['lastPod3']) {
+								var p = localStorage['lastPod3'];
+								var an = document.createElement('a');
+								an.className = 'dpod lastpod';
+								an.title = p;
+								if (document.getElementsByTagName('body')[0].innerText) {
+									an.innerText = p;
+								} else {
+									an.textContent = p;
+								}
+								
+								for (i=0;i<pods.length;i++) {
+									if (pods[i].title === p) {
+										pods[i].className = 'dpod hidepod';
+									}
+								}
+								
+								document.getElementById('podlist').insertBefore(an, document.getElementById('first'));
+							}
 						}
 					}
 				}
 				
-				pods = document.getElementsByClassName('dpod');
+				updlinks();
+				
+				document.getElementById('openao').onclick = function() { document.getElementById('contopt').className="showopt"; document.getElementById('openao').style.display='none'; }
+				document.getElementById('delete').onclick = function() { forget(); }
+				
+				document.getElementById('markdown').onchange = function() {
+					if (document.getElementById('markdown').checked) {
+						title = '['+title+']('+url+')';
+						url = ' ';
+					} else {
+						title = oldtit;
+						url = oldurl;
+					}
+					updlinks();
+				}
+				document.getElementById('shorten').onchange = function() {
+					if (document.getElementById('shorten').checked) {
+						var xhr = new XMLHttpRequest();
+						xhr.open("GET", "http://api.bitly.com/v3/shorten?login=bartimeo&apiKey=R_5fe8386a052e3f3d6ece604eab0c59db&format=txt&domain=j.mp&longUrl="+url);
+						xhr.onreadystatechange = function() { 
+							if(xhr.readyState == 4) { 
+								if(xhr.status==200) {
+									console.log(xhr.responseText);
+									shurl = decodeURIComponent(encodeURIComponent(xhr.responseText).replace("%0A",""));
+									if (document.getElementById('markdown').checked) {
+										title = '['+oldtitle+']('+shurl+')';
+										url = ' ';
+									} else {
+										url = shurl;
+									}
+									updlinks();
+								} else {
+									console.log("Problem?", xhr);
+								}
+							}
+						}
+						xhr.send();
+					} else {
+						if (document.getElementById('markdown').checked) {
+							title = '['+oldtitle+']('+oldurl+')';
+							url = ' ';
+						} else {
+							title = oldtit;
+							url = oldurl;
+						}
+						updlinks();
+					}
+				}
+			}
+			
+			function updlinks() {
+				var pods = document.getElementsByClassName('dpod');
 				
 				for (i=0;i<pods.length;i++) {
 					var purl = "http://"+pods[i].title+"/bookmarklet?url="+encodeURIComponent(url)+"&title="+encodeURIComponent(title);
@@ -327,22 +382,12 @@
 					pods[i].href = purl;
 					
 					pods[i].onclick = function() {
-						recuerda(this.title);
+						extras(this.title);
 					};
 				}
-				
-				document.getElementById('openao').onclick = function() { document.getElementById('contopt').className="showopt"; document.getElementById('openao').style.display='none'; }
-				document.getElementById('delete').onclick = function() { forget(); }
 			}
 			
 			function recuerda(l) {
-				var r = document.getElementById('remember').checked;
-				if (r) {
-					localStorage["remember"] = "true";
-				} else {
-					localStorage["remember"] = "false";
-				}
-				
 				if (localStorage["lastPod"] && localStorage["lastPod"]!==l) {
 					if (localStorage["lastPod2"] && localStorage["lastPod2"]!==l) {
 						localStorage["lastPod3"] = localStorage["lastPod2"];
@@ -356,7 +401,7 @@
 			
 			function share(u) {
 				if (u!=="") {
-					recuerda(u);
+					extras(u);
 					var nu = "http://"+u+"/bookmarklet?url="+encodeURIComponent(url)+"&title="+encodeURIComponent(title);
 					if (notes!=="") { nu += "&notes="+encodeURIComponent(notes); }
 					nu += "&jump=doclose";
@@ -368,7 +413,7 @@
 				}
 			}
 			
-			function forget() {
+			function forget(a) {
 				localStorage.removeItem('lastPod');
 				localStorage.removeItem('lastPod2');
 				localStorage.removeItem('lastPod3');
@@ -380,6 +425,51 @@
 				for (j=0; j<lastpods.length; j++) {
 					lastpods[j].parentNode.removeChild(lastpods[j]);
 				}
+				if ((document.getElementsByClassName('hidepod') || document.getElementsByClassName('lastpod')) && !a) {
+					forget('again');
+				}
+			}
+			
+			function extras(l) {
+				var r = document.getElementById('remember').checked;
+				var md = document.getElementById('markdown').checked;
+				var sh = document.getElementById('shorten').checked;
+				var nr = document.getElementById('norem').checked;
+				
+				if (r) {
+					localStorage["remember"] = "true";
+				
+					if (nr) {
+						localStorage["lastPod"] = l;
+					}
+				} else {
+					localStorage["remember"] = "false";
+				}
+				
+				if (sh) {
+					var xhr = new XMLHttpRequest();
+					xhr.open("GET", "http://api.bitly.com/v3/shorten?login=bartimeo&apiKey=R_5fe8386a052e3f3d6ece604eab0c59db&format=txt&domain=j.mp&longUrl="+url);
+					xhr.onreadystatechange = function() { 
+						if(xhr.readyState == 4) { 
+							if(xhr.status==200) {
+								console.log(xhr.responseText);
+								url = xhr.responseText;
+							} else {
+								console.log("Problem?", xhr);
+							}
+						}
+					}
+					xhr.send();
+				}
+				
+				if (!nr) {
+					recuerda(l);
+				} else {
+					localStorage['forget'] = 'true';
+				}
+				
+				return true;
+				
 			}
 			
 			window.onload = function() { redirect() };
