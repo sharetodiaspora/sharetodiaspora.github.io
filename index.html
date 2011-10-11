@@ -112,6 +112,9 @@
 					border-color: #bbcad0;
 					color: #222;
 				}
+				section#podlist a.hidepod {
+					display: none;
+				}
 				section#podlist a:hover {
 					border: 1px solid #888;
 					color: #000;
@@ -197,8 +200,12 @@
 				}
 				#contopt {
 					apadding-top: 6px;
+					line-height: 1.2em;
 				}	.opttit {
 						font-size: 13px;
+					}
+					#contopt input[type="checkbox"] {
+						margin-left: 0;
 					}
 		</style>
 		<script type="text/javascript">
@@ -256,11 +263,15 @@
 					var an = document.createElement('a');
 					an.className = 'dpod lastpod';
 					an.title = p;
-					an.innerText = p;
+					if (document.getElementsByTagName('body')[0].innerText) {
+						an.innerText = p;
+					} else {
+						an.textContent = p;
+					}
 					
 					for (i=0;i<pods.length;i++) {
 						if (pods[i].title === p) {
-							pods[i].style.display = 'none';
+							pods[i].className = 'dpod hidepod';
 						}
 					}
 					
@@ -271,11 +282,15 @@
 						var an = document.createElement('a');
 						an.className = 'dpod lastpod';
 						an.title = p;
-						an.innerText = p;
+						if (document.getElementsByTagName('body')[0].innerText) {
+							an.innerText = p;
+						} else {
+							an.textContent = p;
+						}
 						
 						for (i=0;i<pods.length;i++) {
 							if (pods[i].title === p) {
-								pods[i].style.display = 'none';
+								pods[i].className = 'dpod hidepod';
 							}
 						}
 						
@@ -286,11 +301,15 @@
 							var an = document.createElement('a');
 							an.className = 'dpod lastpod';
 							an.title = p;
-							an.innerText = p;
+							if (document.getElementsByTagName('body')[0].innerText) {
+								an.innerText = p;
+							} else {
+								an.textContent = p;
+							}
 							
 							for (i=0;i<pods.length;i++) {
 								if (pods[i].title === p) {
-									pods[i].style.display = 'none';
+									pods[i].className = 'dpod hidepod';
 								}
 							}
 							
@@ -313,6 +332,7 @@
 				}
 				
 				document.getElementById('openao').onclick = function() { document.getElementById('contopt').className="showopt"; document.getElementById('openao').style.display='none'; }
+				document.getElementById('delete').onclick = function() { forget(); }
 			}
 			
 			function recuerda(l) {
@@ -345,6 +365,20 @@
 				//	return false;
 				} else {
 					document.getElementById('podurl').className="error";
+				}
+			}
+			
+			function forget() {
+				localStorage.removeItem('lastPod');
+				localStorage.removeItem('lastPod2');
+				localStorage.removeItem('lastPod3');
+				var hidden = document.getElementsByClassName('hidepod');
+				for (i=0; i<hidden.length; i++) {
+					hidden[i].className = 'dpod';
+				}
+				var lastpods = document.getElementsByClassName('lastpod');
+				for (j=0; j<lastpods.length; j++) {
+					lastpods[j].parentNode.removeChild(lastpods[j]);
 				}
 			}
 			
@@ -388,9 +422,11 @@
 		<div class="advanced">
 			<a class="openao" id="openao">Advanced options</a>
 			<div class="hideopt" id="contopt">
-				<span class="opttit">Advanced options (soon available!)</span><br />
-				<!--<input type="checkbox" id="markdown" />--><label for="markdown">Use Markdown syntax for link</label><br />
-				<!--<input type="checkbox" id="shorten" />--><label for="shorten">Shorten URL (j.mp)</label>
+				<span class="opttit">Advanced options</span><br />
+				<input type="checkbox" id="markdown" /><label for="markdown">Use Markdown syntax for link</label><br />
+				<input type="checkbox" id="shorten" /><label for="shorten">Shorten URL (j.mp)</label><p>
+				<input type="checkbox" id="norem" /><label for="norem">Never remember my last 3 pods</label><br />
+				<a class="delete" id="delete">Forget my last 3 pods</a><br />
 			</div>
 		</div>
 	</body>
