@@ -210,7 +210,7 @@
 		</style>
 		<script type="text/javascript">
 			function par(name){ /* Function "par" from Netlobo.com (http://www.netlobo.com/url_query_string_javascript.html) */
-				var regexS = "[\\?&]"+name+"=([^&#]*)";
+				var regexS = "[\\?&]"+name+"=([^&]*)";
 				var regex = new RegExp ( regexS );
 				var tmpURL = window.location.href;
 				var results = regex.exec( tmpURL );
