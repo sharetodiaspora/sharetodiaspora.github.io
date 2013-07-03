@@ -139,19 +139,19 @@
 			<h4>Normal website</h4>
 			<span class="exp">Copy this HTML code where you want the button to appear.</span><p>
 			Without Javascript:<p>
-			<a class="testsh" href="http://sharetodiaspora.github.com/?title=Diaspora* Advanced Sharer&url=http://sharetodiaspora.github.com/" target="_blank">
+			<a class="testsh" href="http://sharetodiaspora.github.io/?title=Diaspora* Advanced Sharer&url=http://sharetodiaspora.github.io/" target="_blank">
 	<img src="https://joindiaspora.com/favicon.ico" style="border: 0px solid;" />
-</a><pre>&lt;a href="http://sharetodiaspora.github.com/?title=<span>Your title here</span>&url=<span>http://www.example.com/some/path</span>" target="_blank">
+</a><pre>&lt;a href="http://sharetodiaspora.github.io/?title=<span>Your title here</span>&url=<span>http://www.example.com/some/path</span>" target="_blank">
 	&lt;img src="https://joindiaspora.com/favicon.ico" style="border: 0px solid;" />
 &lt;/a></pre><p>
 			With Javascript:<p>
-			<a class="testsh" href="javascript:window.open('http://sharetodiaspora.github.com/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550');">
-	<img src="https://joindiaspora.com/favicon.ico" style="border: 0px solid;" /></a><pre>&lt;a href="javascript:window.open('http://sharetodiaspora.github.com/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550');">
+			<a class="testsh" href="javascript:window.open('http://sharetodiaspora.github.io/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550');">
+	<img src="https://joindiaspora.com/favicon.ico" style="border: 0px solid;" /></a><pre>&lt;a href="javascript:window.open('http://sharetodiaspora.github.io/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550');">
 	&lt;img src="https://joindiaspora.com/favicon.ico" style="border: 0px solid;" />
 &lt;/a></pre><p>
 			Alternative version (with text):<p>
-			<a class="testsh" href="javascript:window.open('http://sharetodiaspora.github.com/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550');" style="padding: 3px 4px 2px; background: #fafafa; border: 1px solid #ddd; font-size: 13px; color: #222; text-decoration: none; vertical-align: top;">
-	<img src="https://joindiaspora.com/favicon.ico" style="border: 0px solid;" /> Diaspora*</a><pre>&lt;a href="javascript:window.open('http://sharetodiaspora.github.com/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550');"
+			<a class="testsh" href="javascript:window.open('http://sharetodiaspora.github.io/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550');" style="padding: 3px 4px 2px; background: #fafafa; border: 1px solid #ddd; font-size: 13px; color: #222; text-decoration: none; vertical-align: top;">
+	<img src="https://joindiaspora.com/favicon.ico" style="border: 0px solid;" /> Diaspora*</a><pre>&lt;a href="javascript:window.open('http://sharetodiaspora.github.io/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550');"
    style="padding: 3px 4px 2px; background: #fafafa; border: 1px solid #ddd; font-size: 13px; color: #222; text-decoration: none; vertical-align: top;">
 	&lt;img src="https://joindiaspora.com/favicon.ico" style="border: 0px solid;" /> Diaspora*
 &lt;/a></pre>
@@ -164,19 +164,19 @@
 				<li>Check <b>Expand widget templates</b>, press Ctrl+F and write <i>sharebuttons</i>.</li>
 				<li>Find the line <code>&lt;b:includable id='shareButtons' var='post'></code>. Just after that, copy the following code:</li>
 			</ul>
-			<pre>&lt;a expr:href='&quot;http://sharetodiaspora.github.com/?url=&quot; + data:post.url + &quot;&amp;title=&quot; + data:post.title' target='_blank' title='Share on Diaspora'>
+			<pre>&lt;a expr:href='&quot;http://sharetodiaspora.github.io/?url=&quot; + data:post.url + &quot;&amp;title=&quot; + data:post.title' target='_blank' title='Share on Diaspora'>
 	&lt;img src='http://joindiaspora.com/favicon.ico' style='width:16px; height:16px; padding:0; border:0; vertical-align:middle;'/>
 &lt;/a></pre>
 			<h3>Browser addons</h3>
 			<h4>Bookmarklet</h4>
-			Instead of using several bookmarklets for several pods, you can just drag this one: <a href="javascript:(function(){f='http://sharetodiaspora.github.com/?url='+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent(document.title)+'&notes='+encodeURIComponent(''+(window.getSelection?window.getSelection():document.getSelection?document.getSelection():document.selection.createRange().text))+'&v=1&';a=function(){if(!window.open(f+'noui=1&jump=doclose','diasporav1','location=yes,links=no,scrollbars=no,toolbar=no,width=620,height=550'))location.href=f+'jump=yes'};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()">Share to Diaspora*</a> to your bookmarks bar.
+			Instead of using several bookmarklets for several pods, you can just drag this one: <a href="javascript:(function(){f='http://sharetodiaspora.github.io/?url='+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent(document.title)+'&notes='+encodeURIComponent(''+(window.getSelection?window.getSelection():document.getSelection?document.getSelection():document.selection.createRange().text))+'&v=1&';a=function(){if(!window.open(f+'noui=1&jump=doclose','diasporav1','location=yes,links=no,scrollbars=no,toolbar=no,width=620,height=550'))location.href=f+'jump=yes'};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()">Share to Diaspora*</a> to your bookmarks bar.
 			<h4>Firefox</h4>
-			<a href="https://addons.mozilla.org/es/firefox/addon/diaspora-advanced-sharer/">Diaspora Advanced Sharer</a> by <a href="https://joindiaspora.com/u/jaywink">Jason Robinson</a> integrates D*AS into Mozilla Firefox. 
+			<a href="https://addons.mozilla.org/es/firefox/addon/diaspora-advanced-sharer/">Diaspora Advanced Sharer</a> by <a href="https://iliketoast.net/u/jaywink">Jason Robinson</a> integrates D*AS into Mozilla Firefox. 
 		</article>
 		<footer>
 			<div>
 				by <a href="http://dia.so/bartimeo">Bartimeo*</a><br />
-				based on <a href="http://basshero.org/page/show/dss">Diaspora* Sharing Service</a> by <a href="https://joindiaspora.com/u/jaywink">Jason Robinson</a><br />
+				based on <i>Diaspora* Sharing Service</i> by <a href="https://iliketoast.net/u/jaywink">Jason Robinson</a><br />
 				Thanks to all the Diaspora* Community!!<br />
 				Diaspora* Advanced Sharer code is available at <a href="https://github.com/sharetodiaspora/sharetodiaspora.github.com">Github</a>. You are free to copy, modify and distribute it.
 			</div>
