@@ -9,5 +9,6 @@
 <remember "Remember my choice, don't ask again">
 <options "Advanced options">
 <markdown "Use Markdown syntax for link">
+<shorten "Shorten link via j.mp">
 <noremember "Never remember my last 3 pods">
 <forget "Forget my last 3 pods">
