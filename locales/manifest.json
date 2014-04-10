@@ -1,0 +1,11 @@
+{
+  "locales": [
+    "en",
+    "es"
+  ],
+  "default_locale": "en",
+  "resources": [
+    "./{{locale}}/index.l20n",
+    "./{{locale}}/about.l20n"
+  ]
+}

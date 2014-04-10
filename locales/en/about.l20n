@@ -1,0 +1,13 @@
+<diaspora "diaspora*">
+<share {
+   *infinitive: "Share",
+    gerund: "Sharing"
+}>
+<sharing-title "{{ share.gerund }}"
+<choose "Choose your {{ diaspora }} pod">
+<introduce "or introduce your pod URL">
+<remember "Remember my choice, don't ask again">
+<options "Advanced options">
+<markdown "Use Markdown syntax for link">
+<no-remember "Never remember my last 3 pods">
+<forget "Forget my last 3 pods">

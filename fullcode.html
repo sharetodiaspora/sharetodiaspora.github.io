@@ -14,6 +14,8 @@
 <html>
 	<head>
 		<title>Share to diaspora*</title>
+		<meta charset="utf-8" />
+		<link rel="localization" href="./locales/manifest.json" />
 		<style>
 			body {
 				margin: 0;
@@ -480,17 +482,18 @@
 			
 			window.onload = function() { redirect() };
 		</script>
+		<script type="text/javascript" src="./js/l20n.min.js"></script>
 	</head>
 	<body>
 		<header>
-			<h2>Sharing</h2>
+			<h2 data-l10n-id="sharing-title">Sharing</h2>
 			<div id="sharedet">
 				<div id="sharetitle"></div>
 				<div id="shareurl"></div>
 			</div>
 		</header>
 		<section id="podlist">
-			<h3>Choose your diaspora* pod</h3>
+			<h3 data-l10n-id="choose">Choose your diaspora* pod</h3>
 			<a class="dpod" title="joindiaspora.com" id="first">joindiaspora.com</a>
 			<a class="dpod" title="pod.geraspora.de">pod.geraspora.de</a>
             <a class="dpod" title="diasp.eu">diasp.eu</a>
@@ -503,25 +506,25 @@
             <a class="dpod" title="nerdpol.ch">nerdpol.ch</a>
 		</section>
 		<section id="podinput">
-			<h3>or introduce your pod URL</h3>
+			<h3 data-l10n-id="introduce">or introduce your pod URL</h3>
 			
 			<form onsubmit="share(document.getElementById('podurl').value); return false;">
 				<input type="text" id="podurl" placeholder="Example: joindiaspora.com" value="" /><br />
-				<input type="submit" id="podurlsm" value="Share" />
+				<input type="submit" id="podurlsm" data-l10n-id="share" value="Share" />
 			</form>
 		</section>
 		<span class="clear"></span>
 		<div class="bot_opt">
-			<input type="checkbox" id="remember" /><label for="remember">Remember my choice, don't ask again</label>
+			<input type="checkbox" id="remember" /><label for="remember" data-l10n-id="remember">Remember my choice, don't ask again</label>
 		</div>
 		<div class="advanced">
-			<a class="openao" id="openao">Advanced options</a>
+			<a class="openao" id="openao" data-l10n-id="options">Advanced options</a>
 			<div class="hideopt" id="contopt">
-				<span class="opttit">Advanced options</span><br />
-				<input type="checkbox" id="markdown" /><label for="markdown">Use Markdown syntax for link</label><br />
-				<input type="checkbox" id="shorten" /><label for="shorten">Shorten URL (j.mp)</label><p>
-				<input type="checkbox" id="norem" /><label for="norem">Never remember my last 3 pods</label><br />
-				<a class="delete" id="delete">Forget my last 3 pods</a><br />
+				<span class="opttit" data-l10n-id="options">Advanced options</span><br />
+				<input type="checkbox" id="markdown" /><label for="markdown" data-l10n-id="markdown">Use Markdown syntax for link</label><br />
+				<input type="checkbox" id="shorten" /><label for="shorten" data-l10n-id="shorten">Shorten URL (j.mp)</label><p>
+				<input type="checkbox" id="norem" /><label for="norem" data-l10n-id="no-remember">Never remember my last 3 pods</label><br />
+				<a class="delete" id="delete" data-l10n-id="forget">Forget my last 3 pods</a><br />
 			</div>
 		</div>
 	</body>
