@@ -15,7 +15,7 @@
 	<head>
 		<title>Share to diaspora*</title>
 		<meta charset="utf-8" />
-		<link rel="localization" href="./locales/manifest.json" />
+		<link rel="localization" href="/locales/manifest.json" />
 		<style>
 			body {
 				margin: 0;
@@ -482,7 +482,7 @@
 			
 			window.onload = function() { redirect() };
 		</script>
-		<script type="text/javascript" src="./js/l20n.min.js"></script>
+		<script type="text/javascript" src="/js/l20n.min.js"></script>
 	</head>
 	<body>
 		<header>
@@ -508,9 +508,9 @@
 		<section id="podinput">
 			<h3 data-l10n-id="introduce">or introduce your pod URL</h3>
 			
-			<form onsubmit="share(document.getElementById('podurl').value); return false;">
+			<form onsubmit="share(document.getElementById('podurl').value); return false;" data-l10n-id="submitshare">
 				<input type="text" id="podurl" placeholder="Example: joindiaspora.com" value="" /><br />
-				<input type="submit" id="podurlsm" data-l10n-id="share" value="Share" />
+				<input type="submit" id="podurlsm" value="Share" />
 			</form>
 		</section>
 		<span class="clear"></span>
