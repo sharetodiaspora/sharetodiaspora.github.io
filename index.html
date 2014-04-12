@@ -219,6 +219,8 @@
 			var url = decodeURIComponent(par('url'));
 			var notes = decodeURIComponent(par('notes'));
 			var redir = decodeURIComponent(par('redirect'));
+			var shortened = null;
+			var use_shortened = false;
 			var oldtit = title;
 			var oldurl = url;
 			var oldnot = notes;
@@ -230,14 +232,8 @@
 				} else {
 					if (localStorage.remember && localStorage.remember === "true" && localStorage.lastPod && redir !== "false") {
 						document.querySelector('body').innerHTML="Sharing <b>"+title+"</b> ("+url+") to "+localStorage.lastPod;
-					
-						var rdurl = "http://"+localStorage.lastPod+"/bookmarklet?url="+encodeURIComponent(url)+"&title="+encodeURIComponent(title);
-						if (notes!=="") rdurl += "&notes="+encodeURIComponent(notes);
-						rdurl += "&jump=doclose";
 						
-						location.href = rdurl;
-						
-						return true;
+						share(localStorage.lastPod);
 					} else {
 						document.getElementById('sharetitle').textContent = title;
 						document.getElementById('shareurl').textContent = url;
@@ -286,21 +282,28 @@
 				document.getElementById('shorten').onchange = toggleShorten;
 
 				document.getElementById('markdown').onchange = toggleMarkdown;
+
+				if (localStorage.markdown == "true") toggleMarkdown();
+				toggleShorten();
 			}
 
 			var toggleMarkdown = function() {
+				var inserted = use_shortened ? shortened : url;
 				if (document.getElementById('markdown').checked) {
 					title = '['+title+']('+url+')';
 					url = ' ';
+					localStorage.markdown = "true";
 				} else {
 					title = oldtit;
 					url = oldurl;
+					localStorage.markdown = "false";
 				}
 				updlinks();
 			}
 
 			var toggleShorten = function() {
-				if (document.getElementById('shorten').checked) {
+				use_shortened = document.getElementById('shorten').checked;
+				if (use_shortened && !shortened) {
 					var xhr = new XMLHttpRequest();
 					xhr.open("GET", "http://api.bitly.com/v3/shorten?login=bartimeo&apiKey=R_5fe8386a052e3f3d6ece604eab0c59db&format=txt&domain=j.mp&longUrl="+url);
 					xhr.onreadystatechange = function() { 
@@ -308,13 +311,8 @@
 							if(xhr.status==200) {
 								console.log(xhr.responseText);
 								shurl = decodeURIComponent(encodeURIComponent(xhr.responseText).replace("%0A",""));
-								if (document.getElementById('markdown').checked) {
-									title = '['+oldtitle+']('+shurl+')';
-									url = ' ';
-								} else {
-									url = shurl;
-								}
 								document.querySelector("#shareurl").textContent = shurl;
+								toggleMarkdown();
 								updlinks();
 							} else {
 								console.log("Error:", xhr);
@@ -322,7 +320,7 @@
 						}
 					}
 					xhr.send();
-				} else {
+				} else if (!use_shortened) {
 					document.querySelector("#shareurl").textContent = oldurl;
 					toggleMarkdown();
 				}
@@ -330,9 +328,10 @@
 			
 			var updlinks = function() {
 				var pods = document.querySelectorAll('#podlist a');
+				var inserted = use_shortened ? shortened : url;
 				
 				for (i=0;i<pods.length;i++) {
-					var purl = "http://"+pods[i].title+"/bookmarklet?url="+encodeURIComponent(url)+"&title="+encodeURIComponent(title);
+					var purl = "http://"+pods[i].title+"/bookmarklet?url="+encodeURIComponent(inserted)+"&title="+encodeURIComponent(title);
 					if (notes!=="") { purl += "&notes="+encodeURIComponent(notes); }
 					purl += "&jump=doclose";
 					pods[i].href = purl;
@@ -358,7 +357,8 @@
 			var share = function(u) {
 				if (u!=="") {
 					extras(u);
-					var nu = "http://"+u+"/bookmarklet?url="+encodeURIComponent(url)+"&title="+encodeURIComponent(title);
+					var nu = /^http/.test(u) ? u : ("http://" + u);
+					nu += "/bookmarklet?url="+encodeURIComponent(url)+"&title="+encodeURIComponent(title);
 					if (notes!=="") { nu += "&notes="+encodeURIComponent(notes); }
 					nu += "&jump=doclose";
 					location.href = nu;
@@ -367,27 +367,28 @@
 				}
 			}
 			
-			var forget = function(a) {
+			var forget = function() {
 				localStorage.removeItem('lastPod');
 				localStorage.removeItem('lastPod2');
 				localStorage.removeItem('lastPod3');
-				var hidden = document.getElementsByClassName('hidepod');
-				for (i=0; i<hidden.length; i++) {
-					hidden[i].className = 'dpod';
+				var hidden = document.querySelectorAll('.hidepod');
+				for (var i in hidden) {
+					try {
+						hidden[i].classList.remove("hidepod");
+					} catch(e) {}
 				}
-				var lastpods = document.getElementsByClassName('lastpod');
-				for (j=0; j<lastpods.length; j++) {
-					lastpods[j].parentNode.removeChild(lastpods[j]);
-				}
-				if ((document.getElementsByClassName('hidepod') || document.getElementsByClassName('lastpod')) && !a) {
-					forget('again');
+				var lastpods = document.querySelectorAll('.lastpod');
+				for (var j in lastpods) {
+					try {
+						lastpods[j].parentNode.removeChild(lastpods[j]);
+					} catch(e) {}
 				}
 			}
 			
 			var extras = function(l) {
-				var r = document.getElementById('remember').checked;
-				var md = document.getElementById('markdown').checked;
-				var nr = document.getElementById('norem').checked;
+				// Retrieving current settings or saved settings
+				var r = document.getElementById('remember') ? document.getElementById('remember').checked : localStorage.remember;
+				var nr = document.getElementById('norem') ? document.getElementById('norem').checked : localStorage.forget == "true";
 				
 				if (r) {
 					localStorage.remember = "true";
@@ -402,7 +403,7 @@
 				if (!nr) {
 					remember(l);
 				} else {
-					localStorage['forget'] = 'true';
+					localStorage.forget = 'true';
 				}
 				
 				return true;
@@ -446,7 +447,7 @@
 			<input type="checkbox" id="remember" /><label for="remember" data-l10n-id="remember">Remember my choice, don't ask again</label>
 		</div>
 		<div class="advanced">
-			<h3>Advanced options</h3>
+			<h3 data-l10n-id="options">Advanced options</h3>
 			<input type="checkbox" id="markdown" /><label for="markdown" data-l10n-id="markdown">Use Markdown syntax for link</label><br />
 			<input type="checkbox" id="shorten" /><label for="shorten" data-l10n-id="shorten">Shorten URL (j.mp)</label><p>
 			<input type="checkbox" id="norem" /><label for="norem" data-l10n-id="noremember">Never remember my last 3 pods</label><br />
