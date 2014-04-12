@@ -13,7 +13,7 @@
 -->
 <html>
 	<head>
-		<title>Share to diaspora*</title>
+		<title>Share on diaspora*</title>
 		<meta charset="utf-8" />
 		<link rel="localization" href="/locales/manifest.json" />
 		<style>
@@ -203,6 +203,7 @@
 				}
 		</style>
 		<script type="text/javascript">
+			// Finds the values of URL parameters after "?"
 			var par = function(name){ /* from Netlobo.com (http://www.netlobo.com/url_query_string_javascript.html) */
 				var regexS = "[\\?&]"+name+"=([^&]*)";
 				var regex = new RegExp ( regexS );
@@ -225,6 +226,7 @@
 			var oldurl = url;
 			var oldnot = notes;
 			
+			// Directly redirects or stays in the page
 			var redirect = function() {
 				if (title===""&&url==="") {
 					document.querySelector('body').innerHTML = '';
@@ -244,6 +246,7 @@
 				
 			}
 			
+			// Creates links for pods used by the user
 			var crealinks = function() {
 				var pods = document.querySelectorAll('#podlist a');
 				
@@ -287,6 +290,7 @@
 				toggleShorten();
 			}
 
+			// Converts title and URL into Markdown syntax if necessary
 			var toggleMarkdown = function() {
 				var inserted = use_shortened ? shortened : url;
 				if (document.getElementById('markdown').checked) {
@@ -301,6 +305,7 @@
 				updlinks();
 			}
 
+			// Shortens url if necessary
 			var toggleShorten = function() {
 				use_shortened = document.getElementById('shorten').checked;
 				if (use_shortened && !shortened) {
@@ -326,6 +331,7 @@
 				}
 			}
 			
+			// Changes 'href' values of pod links
 			var updlinks = function() {
 				var pods = document.querySelectorAll('#podlist a');
 				var inserted = use_shortened ? shortened : url;
@@ -342,6 +348,7 @@
 				}
 			}
 			
+			// Stores information about used pods
 			var remember = function(l) {
 				if (localStorage.lastPod && localStorage.lastPod!==l) {
 					if (localStorage.lastPod2 && localStorage.lastPod2!==l) {
@@ -354,6 +361,7 @@
 				return true;
 			}
 			
+			// Calculates URL and redirects (for direct redirection and custom pod)
 			var share = function(u) {
 				if (u!=="") {
 					extras(u);
@@ -367,6 +375,7 @@
 				}
 			}
 			
+			// Frees stored user information about pods
 			var forget = function() {
 				localStorage.removeItem('lastPod');
 				localStorage.removeItem('lastPod2');
@@ -385,9 +394,10 @@
 				}
 			}
 			
+			// Saves settings about pods and automatic redirection
 			var extras = function(l) {
 				// Retrieving current settings or saved settings
-				var r = document.getElementById('remember') ? document.getElementById('remember').checked : localStorage.remember;
+				var r = document.getElementById('remember') ? document.getElementById('remember').checked : localStorage.remember == "true";
 				var nr = document.getElementById('norem') ? document.getElementById('norem').checked : localStorage.forget == "true";
 				
 				if (r) {

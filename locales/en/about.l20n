@@ -1,6 +1,6 @@
 <diaspora "diaspora*">
 <name "Share to {{ diaspora }}">
-<introduction "{{ name }} is a service to share links to any {{ diaspora }} pod.">
+<introduction "{{ name }} is a tool able to share links to any {{ diaspora }} pod.">
 <features """
 <h3>Features</h3>
 <ul>

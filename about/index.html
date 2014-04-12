@@ -14,123 +14,73 @@
 <html>
 	<head>
 		<title>diaspora* Advanced Sharer</title>
+		<meta charset="utf-8" />
 		<link rel="localization" href="/locales/manifest.json" />
 		<style>
 			body {
 				margin: 0;
-				padding: 0 0 2em;
 				font-family: Helvetica, "Helvetica", Arial, sans-serif;
-				font-size: 15px;
+				font-size: 95%;
 				max-height: 100%;
 			}
 			span.clear {
 				clear: both;
 				display: block;
 			}
-			header {
-				/***
-					The style for the header is from diaspora*
-						https://joindiaspora.com
-						https://github.com/diaspora/diaspora
-				***/
-				background-color: #222;
-				-webkit-box-shadow: 0 0 2px #777;
-				-moz-box-shadow: 0 0 2px #777;
-				box-shadow: 0 0 2px #777;
-				background-image: rgba(35,30,30,0.975);
-				filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=rgb(35, 30, 30),endColorstr=#231e1e);
-				-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=rgba(35, 30, 30, 0.95), endColorstr=#231e1e)";
-				background-image: -webkit-gradient(linear,0% 0,0% 100%,from(rgba(35,30,30,0.95)),to(#231e1e));
-				background-image: -moz-linear-gradient(top,rgba(35,30,30,0.95) 0,#231e1e 100%);
-				background-image: -o-linear-gradient(top,rgba(35,30,30,0.95) 0,#231e1e 100%);
-				color: #dadada;
-				padding: 8px 10px;
-			}	header h2 {
-					display: inline-block;
-					font-size: inherit;
-					font-weight: inherit;
-					padding: .6em 20px .6em 10px;
-					margin: 0;
-				}
-				header #share_det {
-					text-align: center;
-					margin: 0;
-					width: auto;
-				}	header #share_det div {
-						display: block;
-						height: 1.2em;
-						max-height: 1.2em;
-						overflow: hidden;
-						white-space: nowrap;
-						text-overflow: ellipsis;
-						-o-text-overflow: ellipsis;
-						padding: 0 10px 0 20px;
-					}
-					header #share_det #share_title {
-						font-weight: bold;
-					}
+			.wrapper {
+				padding: 0 2%;
+				max-width: 50em;
+				margin: 0 auto;
+			}
+			header h1 {
+				display: inline-block;
+				font-size: 200%;
+				font-weight: inherit;
+				padding: .6em 0 .6em;
+				margin: 0;
+				text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+			}
 			a {
 				color: #48a;
-				text-decoration: none;
+				text-decoration: underline;
 			}	a:hover {
-					text-decoration: underline;
-				}
-			section {
-				padding: 16px 20px 6px;
-				max-width: 960px;
-				min-width: 650px;
-				margin: 0 auto;
-			}	section pre {
-					background: #eee;
-					overflow: auto;
-					padding: 5px 8px;
-					border: 1px solid #ccc;
-					font-size: 14px;
-					font-family: Courier New, monospace;
-				}	section pre span {
-						color: #b44;
-					}
-				section .testsh {
-					
-				}
-				section h4 {
-					margin-bottom: .2em;
-				}
-				section ul {
-					margin-top: .2em;
-				}
-				section .exp {
-					font-style: italic;
-					color: #666;
-				}
-			footer {
-				padding: 6px 10px;
-				margin: 26px 10px 6px;
-				border-top: 1px solid #ccc;
-				color: #888;
-				font-size: 13px;
-				line-height: 1.4em;
-			}	footer>div {
-					max-width: 960px;
-					min-width: 650px;
-					margin: 0 auto;
-				}
-				footer a {
-					color: #448;
 					text-decoration: none;
 				}
-				footer a:hover {
-					text-decoration: underline;
+			pre {
+				background: #eee;
+				overflow: auto;
+				padding: 5px 8px;
+				border: 1px solid #ccc;
+				font-size: 14px;
+				font-family: Courier New, monospace;
+			}	pre span {
+					color: #b44;
+				}
+			h3, h4 {
+				margin-bottom: .3em;
+			}
+			ul {
+				margin-top: .2em;
+			}
+			footer {
+				padding: 0.6em 2em 2em;
+				margin: 1.8em -2em 0;
+				border-top: 1px solid #ccc;
+				color: #666;
+				font-size: 85%;
+				line-height: 1.4em;
+			}	footer a {
+					color: #467;
 				}
 		</style>
 		<script type="text/javascript" src="/js/l20n.min.js"></script>
 	</head>
 	<body>
-		<header>
-			<h2 data-l10n-id="name">diaspora* Advanced Sharer</h2>
-		</header>
-		<section>
-			<p data-l10n-id="introduction">diaspora* Advanced Sharer is a service to share links to any diaspora* pod.</p>
+		<div class="wrapper">
+			<header>
+				<h1 data-l10n-id="name">diaspora* Advanced Sharer</h1>
+			</header>
+			<p data-l10n-id="introduction">diaspora* Advanced Sharer is a tool able to share links to any diaspora* pod.</p>
 			<article data-l10n-id="features">
 				<h3>Features</h3>
 				<ul>
@@ -150,7 +100,7 @@
 					These are templates for sharing buttons that you can use in you website or blog.
 				</span>
 				<h4>Normal website</h4>
-				<span class="exp">Copy this HTML code where you want the button to appear.</span><p>
+				Copy this HTML code where you want the button to appear.<p>
 				Without Javascript:<p>
 				<a class="testsh" href="http://sharetodiaspora.github.io/?title=diaspora* Advanced Sharer&url=http://sharetodiaspora.github.io/" target="_blank">
 	<img src="http://sharetodiaspora.github.io/favicon.ico" style="border: 0px solid;" />
@@ -163,14 +113,14 @@
 	&lt;img src="http://sharetodiaspora.github.io/favicon.ico" style="border: 0px solid;" />
 &lt;/a></pre><p>
 				Alternate version with text:<p>
-				<a class="testsh" href="javascript:;" onclick="window.open('http://sharetodiaspora.github.io/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550'); return false;" rel="nofollow" target="_blank" style="padding: 3px 4px 2px; background: #fafafa; border: 1px solid #ddd; font-size: 13px; color: #222; text-decoration: none; vertical-align: top;">
-	<img src="http://sharetodiaspora.github.io/favicon.ico" style="border: 0px solid;" /> diaspora*</a><pre>&lt;a href="javascript:;" onclick="window.open('http://sharetodiaspora.github.io/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550'); return false;" rel="nofollow" target="_blank"
-   style="padding: 3px 4px 2px; background: #fafafa; border: 1px solid #ddd; font-size: 13px; color: #222; text-decoration: none; vertical-align: top;">
-	&lt;img src="http://sharetodiaspora.github.io/favicon.ico" style="border: 0px solid;" /> diaspora*
+				<a class="testsh" href="javascript:;" onclick="window.open('http://sharetodiaspora.github.io/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550'); return false;" rel="nofollow" target="_blank" style="padding: 3px 4px 2px; background: #fafafa; border: 1px solid #ddd; font-size: 13px; color: #222; text-decoration: none;">
+	<img src="http://sharetodiaspora.github.io/favicon.ico" style="border: 0px solid;display: inline-block;vertical-align: top;" /> diaspora*</a><pre>&lt;a href="javascript:;" onclick="window.open('http://sharetodiaspora.github.io/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550'); return false;" rel="nofollow" target="_blank"
+   style="padding: 3px 4px 2px; background: #fafafa; border: 1px solid #ddd; font-size: 13px; color: #222; text-decoration: none;">
+	&lt;img src="http://sharetodiaspora.github.io/favicon.ico" style="border: 0px solid;display: inline-block;vertical-align: top;" /> diaspora*
 &lt;/a></pre>
 			
 				<h4>Blogger blogs</h4>
-				<span class="exp">This method will include a diaspora* share button next to Google +1 button. It is necessary to <a href="http://buzz.blogger.com/2010/06/new-share-buttons.html">enable the sharing buttons</a>.</span>
+				This method will include a diaspora* share button next to Google +1 button. It is necessary to <a href="http://buzz.blogger.com/2010/06/new-share-buttons.html">enable the sharing buttons</a>.
 				<ul>
 					<li>Enter <a href="http://www.blogger.com/home">your dashboard</a> and choose your blog.</li>
 					<li>In section <b>Template</b>, click on <b>Edit HTML</b>. If a warning appears, click <b>Continue</b>.</li>
@@ -186,17 +136,17 @@
 				<h4>Bookmarklet</h4>
 				Instead of using several bookmarklets for several pods, you can just drag this one: <a href="javascript:(function(){f='http://sharetodiaspora.github.io/?url='+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent(document.title)+'&notes='+encodeURIComponent(''+(window.getSelection?window.getSelection():document.getSelection?document.getSelection():document.selection.createRange().text))+'&v=1&';a=function(){if(!window.open(f+'noui=1&jump=doclose','diasporav1','location=yes,links=no,scrollbars=no,toolbar=no,width=620,height=550'))location.href=f+'jump=yes'};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()">Share to diaspora*</a> to your bookmarks bar.
 				<h4>Firefox</h4>
-				<a href="https://addons.mozilla.org/es/firefox/addon/diaspora-advanced-sharer/">diaspora Advanced Sharer</a> by <a href="https://iliketoast.net/u/jaywink">Jason Robinson</a> integrates D*AS into Mozilla Firefox. 
+				<a href="https://addons.mozilla.org/es/firefox/addon/diaspora-advanced-sharer/">diaspora Advanced Sharer</a> by <a href="https://iliketoast.net/u/jaywink">Jason Robinson</a> integrates d*AS into Mozilla Firefox. 
 			</article>
-		</section>
-		<footer>
-			<div>
-				by <a href="http://dia.so/bartimeo">Bartimeo*</a><br />
-				based on <i>diaspora* Sharing Service</i> by <a href="https://iliketoast.net/u/jaywink">Jason Robinson</a><br />
-				Thanks to all the diaspora* Community!!<br />
-				diaspora* Advanced Sharer code is available at <a href="https://github.com/sharetodiaspora/sharetodiaspora.github.com">Github</a>. You are free to copy, modify and distribute it.
-			</div>
-			
-		</footer>
+			<footer>
+				<div>
+					created by <a href="http://dia.so/bartimeo">David Charte</a><br />
+					based on <i>diaspora* Sharing Service</i> by <a href="https://iliketoast.net/u/jaywink">Jason Robinson</a><br />
+					Thanks to all the diaspora* Community!!<br />
+					The source code is available at <a href="https://github.com/sharetodiaspora/sharetodiaspora.github.com">Github</a>. You are free to copy, modify and distribute it.
+				</div>
+				
+			</footer>
+		</div>
 	</body>
 </html>
