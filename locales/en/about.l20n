@@ -27,7 +27,7 @@
 <bloggermethod """
 This method will include a {{ name }} share button next to Google +1 button. It is necessary to <a href="http://buzz.blogger.com/2010/06/new-share-buttons.html">enable the sharing buttons</a>.
 """>
-<bloggerstep1 "Enter <a href="http://www.blogger.com/home">your dashboard</a> and choose your blog.">
+<bloggerstep1 "Enter <a href='http://www.blogger.com/home'>your dashboard</a> and choose your blog.">
 <bloggerstep2 "In section <b>Template</b>, click on <b>Edit HTML</b>. If a warning appears, click <b>Continue</b>.">
 <bloggerstep3 "Check <b>Expand widget templates</b>, press Ctrl+F and write <i>sharebuttons</i>.">
 <bloggerstep41 "Find the line">
@@ -43,3 +43,4 @@ This method will include a {{ name }} share button next to Google +1 button. It 
 <created "created by">
 <based "based on">
 <thanks "Thanks to all the {{ diaspora }} Community!!">
+<sourcecode "The source code is available at <a href='https://github.com/sharetodiaspora/sharetodiaspora.github.com'>Github</a>. You are free to copy, modify and distribute it.">

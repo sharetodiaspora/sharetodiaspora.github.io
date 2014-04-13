@@ -43,3 +43,4 @@ Este método incluirá un botón de compartir a {{ name }} al lado del botón de
 <created "creado por">
 <based "basado en">
 <thanks "Gracias a toda la comunidad {{ diaspora }}!!">
+<sourcecode "El código fuente está disponible en <a href='https://github.com/sharetodiaspora/sharetodiaspora.github.com'>Github</a>. Eres libre de copiarlo, modificarlo y distribuirlo.">
