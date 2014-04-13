@@ -2,7 +2,7 @@
 <name {
   *long: "{{ diaspora }} Advanced Sharer",
   short: "d*AS"
->
+}>
 <introduction "{{ name }} is a tool able to share links to any {{ diaspora }} pod.">
 
 <features "Features">
