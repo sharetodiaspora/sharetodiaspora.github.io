@@ -27,7 +27,7 @@
 <bloggermethod """
 Este método incluirá un botón de compartir a {{ name }} al lado del botón de Google +1. Es necesario <a href="http://buzz.blogger.com/2010/06/new-share-buttons.html">activar los botones de compartir</a>.
 """>
-<bloggerstep1 "Entra a <a href="http://www.blogger.com/home">tu dashboard</a> y elige tu blog.">
+<bloggerstep1 "Entra a <a href='http://www.blogger.com/home'>tu dashboard</a> y elige tu blog.">
 <bloggerstep2 "En la sección <b>Plantilla</b>, haz clic en <b>Editar HTML</b>. Si aparece una advertencia, elige <b>Continuar</b>.">
 <bloggerstep3 "Marca <b>Expandir plantillas de widgets</b>, pulsa Ctrl+F y escribe <i>sharebuttons</i>.">
 <bloggerstep41 "Encuentra la línea">
