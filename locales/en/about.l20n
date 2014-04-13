@@ -1,20 +1,45 @@
 <diaspora "diaspora*">
-<name "{{ diaspora }} Advanced Sharer">
+<name {
+  *long: "{{ diaspora }} Advanced Sharer",
+  short: "d*AS"
+>
 <introduction "{{ name }} is a tool able to share links to any {{ diaspora }} pod.">
-<features """
-<h3>Features</h3>
-<ul>
-    <li>Share on any diaspora* pod, with a default pod list for faster sharing.</li>
-    <li>Remember the last 3 chosen pods, and add/move them to the top of the list. This feature can be disabled if desired.</li>
-    <li>Optional URL shortening (via <a href="http://j.mp">j.mp</a>).</li>
-    <li>Optional Markdown formatting.</li>
-</ul>
+
+<features "Features">
+<shareonany "Share on any {{ diaspora }} pod, with a default pod list for faster sharing.">
+<rememberlast "Remember the last 3 chosen pods, and add/move them to the top of the list. This feature can be disabled if desired.">
+<optmarkdown "Optional URL shortening (via <a href="http://j.mp">j.mp</a>).">
+<optmarkdown "Optional Markdown formatting.">
+
+<privacy "Privacy">
+<wedonttrack """
+{{ name.short }} doesn't track or obtain any information from the user. As it is hosted on Github, Github may track user data for statistical purposes. Pods are stored on the user's browser localStorage. The shared URL is passed to J.mp (from Bit.ly) only if URL shortening is enabled.
 """>
-<privacy """
-<h3>Privacy</h3>
-d*AS doesn't track or obtain any information from the user. As it is hosted on Github, Github may track the user's IP address. Pods are stored on the user's browser localStorage. The shared URL is passed to J.mp (from Bit.ly) only if URL shortening is enabled.
+
+<sharingbuttons "Sharing buttons">
+<templatesforbuttons "These are templates for sharing buttons that you can use in you website or blog.">
+<normalweb "Normal website">
+<copytip "Copy this HTML code where you want the button to appear.">
+<withoutjs "Without Javascript">
+<withjs "With Javascript">
+<alternatever "Alternate version with text">
+
+<bloggermethod """
+This method will include a {{ name }} share button next to Google +1 button. It is necessary to <a href="http://buzz.blogger.com/2010/06/new-share-buttons.html">enable the sharing buttons</a>.
 """>
-<sharingbuttons """
-<h3>Sharing buttons</h3>
-These are templates for sharing buttons that you can use in you website or blog.
-""">
+<bloggerstep1 "Enter <a href="http://www.blogger.com/home">your dashboard</a> and choose your blog.">
+<bloggerstep2 "In section <b>Template</b>, click on <b>Edit HTML</b>. If a warning appears, click <b>Continue</b>.">
+<bloggerstep3 "Check <b>Expand widget templates</b>, press Ctrl+F and write <i>sharebuttons</i>.">
+<bloggerstep41 "Find the line">
+<bloggerstep42 "Just after that, copy the following code">
+
+<browseraddons "Browser addons">
+<bookmarklet "Bookmarklet">
+<dragthis "Instead of using several bookmarklets for several pods, you can just drag this one">
+<tobkmrkbar "to your bookmarks bar">
+<by "by">
+<integrates "integrates {{ name.short }} into Mozilla Firefox">
+
+<created "created by">
+<based "based on">
+<thanks "Thanks to all the {{ diaspora }} Community!!">

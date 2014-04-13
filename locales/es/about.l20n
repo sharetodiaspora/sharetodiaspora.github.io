@@ -1,0 +1,45 @@
+<diaspora "diaspora*">
+<name {
+  *long: "{{ diaspora }} Advanced Sharer",
+  short: "d*AS"
+>
+<introduction "{{ name }} es una herramienta capaz de compartir enlaces a cualquier pod de {{ diaspora }}.">
+
+<features "Características">
+<shareonany "Compartir en cualquier pod de {{ diaspora }}, incluyendo una lista de los pods más populares.">
+<rememberlast "Recordar los 3 últimos pods escogidos y destacarlos. Esta función se puede desactivar.">
+<optmarkdown "Acortación de URL opcional (mediante <a href="http://j.mp">j.mp</a>).">
+<optmarkdown "Formato Markdown opcional.">
+
+<privacy "Privacidad">
+<wedonttrack """
+{{ name.short }} no registra ni obtiene ninguna información del usuario. Al estar alojado en Github, es posible que Github registre datos estadísticos del usuario. Los pods escogidos se almacenan en el localStorage del navegador. El URL compartido se comunica a J.mp (de Bit.ly) únicamente si se activa la acortación del enlace.
+""">
+
+<sharingbuttons "Botones de comparir">
+<templatesforbuttons "Estas son plantillas para botones de compartir que puedes usar en tu web o blog.">
+<normalweb "Web normal">
+<copytip "Copia el siguiente código HTML donde quieras que aparezca el botón.">
+<withoutjs "Sin Javascript">
+<withjs "Con Javascript">
+<alternatever "Versión alternativa con texto">
+
+<bloggermethod """
+Este método incluirá un botón de compartir a {{ name }} al lado del botón de Google +1. Es necesario <a href="http://buzz.blogger.com/2010/06/new-share-buttons.html">activar los botones de compartir</a>.
+""">
+<bloggerstep1 "Entra a <a href="http://www.blogger.com/home">tu dashboard</a> y elige tu blog.">
+<bloggerstep2 "En la sección <b>Plantilla</b>, haz clic en <b>Editar HTML</b>. Si aparece una advertencia, elige <b>Continuar</b>.">
+<bloggerstep3 "Marca <b>Expandir plantillas de widgets</b>, pulsa Ctrl+F y escribe <i>sharebuttons</i>.">
+<bloggerstep41 "Encuentra la línea">
+<bloggerstep42 "Justo después, añade el siguiente código">
+
+<browseraddons "Complementos de navegador">
+<bookmarklet "Marcador">
+<dragthis "En lugar de usar varios <em>bookmarklets</em> para varios pods, puedes arrastrar este">
+<tobkmrkbar "a tu barra de marcadores">
+<by "por">
+<integrates "integra {{ name.short }} en Mozilla Firefox">
+
+<created "creado por">
+<based "basado en">
+<thanks "Gracias a toda la comunidad {{ diaspora }}!!">
