@@ -8,7 +8,7 @@
 <features "Características">
 <shareonany "Compartir en cualquier pod de {{ diaspora }}, incluyendo una lista de los pods más populares.">
 <rememberlast "Recordar los 3 últimos pods escogidos y destacarlos. Esta función se puede desactivar.">
-<optmarkdown "Acortación de URL opcional (mediante <a href='http://j.mp'>j.mp</a>).">
+<optshortening "Acortación de URL opcional (mediante <a href='http://j.mp'>j.mp</a>).">
 <optmarkdown "Formato Markdown opcional.">
 
 <privacy "Privacidad">

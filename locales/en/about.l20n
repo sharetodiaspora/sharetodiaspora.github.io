@@ -8,7 +8,7 @@
 <features "Features">
 <shareonany "Share on any {{ diaspora }} pod, with a default pod list for faster sharing.">
 <rememberlast "Remember the last 3 chosen pods, and add/move them to the top of the list. This feature can be disabled if desired.">
-<optmarkdown "Optional URL shortening (via <a href='http://j.mp'>j.mp</a>).">
+<optshortening "Optional URL shortening (via <a href='http://j.mp'>j.mp</a>).">
 <optmarkdown "Optional Markdown formatting.">
 
 <privacy "Privacy">
