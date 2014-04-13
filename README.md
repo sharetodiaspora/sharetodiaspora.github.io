@@ -12,7 +12,7 @@ http://sharetodiaspora.github.io/?url=joindiaspora.com&title=Join%20diaspora&not
 
 You can use [share buttons and a custom bookmarklet](http://sharetodiaspora.github.io/about) to create these links.
 
-**Note**: If you've marked *Remember my choice* then you will be always redirected to the pods you chose that time. To avoid this, add the parameter `&redirect=false` on the URL.
+**Note**: If you've marked *Remember my choice* then you will be always redirected to the pod you chose that time. To avoid this, add the parameter `&redirect=false` on the URL.
 
 ### Contributing a translation
 So you want to contribute? Thank you!
