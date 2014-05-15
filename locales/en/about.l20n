@@ -39,6 +39,7 @@ This method will include a {{ name }} share button next to Google +1 button. It 
 <tobkmrkbar "to your bookmarks bar">
 <by "by">
 <integrates "integrates {{ name.short }} into Mozilla Firefox">
+<wordpressplugin "inserts a Share on {{ diaspora }} button onto your Wordpress blog">
 
 <created "created by">
 <based "based on">

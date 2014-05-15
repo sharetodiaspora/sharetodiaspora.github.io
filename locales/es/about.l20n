@@ -39,6 +39,7 @@ Este método incluirá un botón de compartir a {{ name }} al lado del botón de
 <tobkmrkbar "a tu barra de marcadores">
 <by "por">
 <integrates "integra {{ name.short }} en Mozilla Firefox">
+<wordpressplugin "inserta un botón para compartir a {{ diaspora }} en tu blog de Wordpress"
 
 <created "creado por">
 <based "basado en">
