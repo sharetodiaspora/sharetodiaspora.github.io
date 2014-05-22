@@ -3,7 +3,8 @@
     "en",
     "es",
     "fr",
-    "it"
+    "it",
+    "ru"
   ],
   "default_locale": "en",
   "resources": [
