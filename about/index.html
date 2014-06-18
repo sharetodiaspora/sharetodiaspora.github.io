@@ -13,83 +13,131 @@
 -->
 <html>
 	<head>
-		<title>diaspora* Advanced Sharer</title>
-      	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Advanced Sharer for diaspora*</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="utf-8" />
+		<link rel="stylesheet" href="../css/about.css">
 		<link rel="localization" href="/locales/manifest.json" />
 		<script type="text/javascript" src="/js/l20n.min.js"></script>
 	</head>
 	<body>
 		<div class="wrapper">
 			<header>
-				<h1>diaspora* Advanced Sharer</h1>
+				<h1>Advanced Sharer for diaspora*</h1>
+
+				<img src="../assets/about_header.png" />
+				<h2>Share all teh internetz!</h2>
 			</header>
-			diaspora* Advanced Sharer is a tool able to share links to any diaspora* pod.<p/>
+
 			<article>
 				<h3>Features</h3>
 				<ul>
-					<li>Share on any diaspora* pod, with a default pod list for faster sharing.</li>
-					<li>Remember the last 3 chosen pods, and add/move them to the top of the list. This feature can be disabled if desired.</li>
-					<li>Optional URL shortening (via <a href="http://j.mp">j.mp</a>).</li>
-					<li>Optional Markdown formatting.</li>
+					<li>Share websites on any diaspora* pod. Popular pods already available on a list.</li>
+					<li>Optionally memorize your last 3 pods.</li>
+					<li>URL shortening (via <a href="http://j.mp">j.mp</a>).</li>
+					<li>Markdown formatting.</li>
+					<li><b>Privacy</b>: all user data is stored on the browser local storage.
+						Shared URL will be shared with <a href="http://j.mp">j.mp</a> (from Bit.ly) only when URL shortening is enabled.</li>
 				</ul>
 			</article>
+
 			<article>
-				<h3>Privacy</h3>
-				d*AS doesn't track or obtain any information from the user. As it is hosted on Github, Github may track the user's IP address. Pods are stored on the user's browser localStorage. The shared URL is passed to J.mp (from Bit.ly) only if URL shortening is enabled.
-			</article>
-			<article>
-				<h3>Sharing buttons</h3>
-				These are templates for sharing buttons that you can use in you website or blog.
-				<h4>Normal website</h4>
-				Copy this HTML code where you want the button to appear.<p>
-				Without Javascript:<p>
-				<a class="testsh" href="http://sharetodiaspora.github.io/?title=diaspora* Advanced Sharer&url=http://sharetodiaspora.github.io/" target="_blank">
-	<img src="http://sharetodiaspora.github.io/favicon.png" style="border: 0px solid;" />
-</a><pre>&lt;a href="http://sharetodiaspora.github.io/?title=Your title here&url=http://www.example.com/some/path" target="_blank">
-	&lt;img src="http://sharetodiaspora.github.io/favicon.png" style="border: 0px solid;" />
-&lt;/a></pre><p>
-				With Javascript:<p>
-				<a class="testsh" href="javascript:;" onclick="window.open('http://sharetodiaspora.github.io/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550'); return false;" rel="nofollow" target="_blank">
+				<h3>Buttons and add-ons</h3>
+
+				<h4>Sharing buttons</h4>
+
+				<input type="radio" name="code" id="nojs"/>
+				<label for="nojs">Without JavaScript</label>
+
+				<div class="hidden">
+					<a class="testsh" href="http://sharetodiaspora.github.io/?title=diaspora* Advanced Sharer&url=http://sharetodiaspora.github.io/" target="_blank">
+		<img src="http://sharetodiaspora.github.io/favicon.png" style="border: 0px solid;" />
+	</a><pre>&lt;a href="http://sharetodiaspora.github.io/?title=Your title here&url=http://www.example.com/some/path" target="_blank">
+		&lt;img src="http://sharetodiaspora.github.io/favicon.png" style="border: 0px solid;" />
+	&lt;/a></pre>
+				</div>
+
+				<input type="radio" name="code" id="btjs"/>
+				<label for="btjs">With JavaScript</label>
+
+				<div class="hidden">
+					<a class="testsh" href="javascript:;" onclick="window.open('http://sharetodiaspora.github.io/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550'); return false;" rel="nofollow" target="_blank">
 	<img src="http://sharetodiaspora.github.io/favicon.png" style="border: 0px solid;" /></a><pre>&lt;a href="javascript:;" onclick="window.open('http://sharetodiaspora.github.io/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550'); return false;" rel="nofollow" target="_blank">
 	&lt;img src="http://sharetodiaspora.github.io/favicon.png" style="border: 0px solid;" />
 &lt;/a></pre><p>
-				Alternate version with text:<p>
-				<a class="testsh" href="javascript:;" onclick="window.open('http://sharetodiaspora.github.io/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550'); return false;" rel="nofollow" target="_blank" style="padding: 3px 4px 2px; background: #fafafa; border: 1px solid #ddd; font-size: 13px; color: #222; text-decoration: none;">
-	<img src="http://sharetodiaspora.github.io/favicon.png" style="border: 0px solid;display: inline-block;vertical-align: top;" /> diaspora*</a><pre>&lt;a href="javascript:;" onclick="window.open('http://sharetodiaspora.github.io/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550'); return false;" rel="nofollow" target="_blank"
-   style="padding: 3px 4px 2px; background: #fafafa; border: 1px solid #ddd; font-size: 13px; color: #222; text-decoration: none;">
-	&lt;img src="http://sharetodiaspora.github.io/favicon.png" style="border: 0px solid;display: inline-block;vertical-align: top;" /> diaspora*
-&lt;/a></pre>
+				</div>
 
-				<h4>Blogger</h4>
-				This method will include a diaspora* share button next to Google +1 button. It is necessary to <a href="http://buzz.blogger.com/2010/06/new-share-buttons.html">enable the sharing buttons</a>.
-				<ul>
-					<li>Enter <a href="http://www.blogger.com/home">your dashboard</a> and choose your blog.</li>
-					<li>In section <b>Template</b>, click on <b>Edit HTML</b>. If a warning appears, click <b>Continue</b>.</li>
-					<li>Check <b>Expand widget templates</b>, press Ctrl+F and write <i>sharebuttons</i>.</li>
-					<li>Find the line <code>&lt;b:includable id='shareButtons' var='post'></code>. Just after that, copy the following code:</li>
-				</ul>
-				<pre>&lt;a expr:href='&quot;http://sharetodiaspora.github.io/?url=&quot; + data:post.url + &quot;&amp;title=&quot; + data:post.title' target='_blank' title='Share on diaspora'>
+				<input type="radio" name="code" id="jstxt"/>
+				<label for="jstxt">With JavaScript & text</label>
+
+				<div class="hidden">
+					<a class="testsh" href="javascript:;" onclick="window.open('http://sharetodiaspora.github.io/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550'); return false;" rel="nofollow" target="_blank" style="padding: 3px 4px 2px; background: #fafafa; border: 1px solid #ddd; font-size: 13px; color: #222; text-decoration: none;">
+		<img src="http://sharetodiaspora.github.io/favicon.png" style="border: 0px solid;display: inline-block;vertical-align: top;" /> diaspora*</a><pre>&lt;a href="javascript:;" onclick="window.open('http://sharetodiaspora.github.io/?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title),'das','location=no,links=no,scrollbars=no,toolbar=no,width=620,height=550'); return false;" rel="nofollow" target="_blank"
+	style="padding: 3px 4px 2px; background: #fafafa; border: 1px solid #ddd; font-size: 13px; color: #222; text-decoration: none;">
+		&lt;img src="http://sharetodiaspora.github.io/favicon.png" style="border: 0px solid;display: inline-block;vertical-align: top;" /> diaspora*
+	&lt;/a></pre>
+				</div>
+
+				<input type="radio" name="code" id="blgrr"/>
+				<label for="blgrr">Blogger</label>
+
+				<div class="hidden">
+					This method will include a diaspora* share button next to Google +1 button. It is necessary to <a href="http://buzz.blogger.com/2010/06/new-share-buttons.html">enable the sharing buttons</a>.
+					<ul>
+						<li>Enter <a href="http://www.blogger.com/home">your dashboard</a> and choose your blog.</li>
+						<li>In section <b>Template</b>, click on <b>Edit HTML</b>. If a warning appears, click <b>Continue</b>.</li>
+						<li>Check <b>Expand widget templates</b>, press Ctrl+F and write <i>sharebuttons</i>.</li>
+						<li>Find the line <code>&lt;b:includable id='shareButtons' var='post'></code>. Just after that, copy the following code:</li>
+					</ul>
+					<pre>&lt;a expr:href='&quot;http://sharetodiaspora.github.io/?url=&quot; + data:post.url + &quot;&amp;title=&quot; + data:post.title' target='_blank' title='Share on diaspora'>
 	&lt;img src='http://sharetodiaspora.github.io/favicon.png' style='width:16px; height:16px; padding:0; border:0; vertical-align:middle;'/>
 &lt;/a></pre>
-				<h4>Wordpress</h4>
-				<a href="http://wordpress.org/plugins/share-on-diaspora/">Share on diaspora* Plugin</a>, by <a href="https://joindiaspora.com/people/bf5954464d47fe88">Vitalie Ciubotaru</a>, inserts a Share on diaspora* button onto your Wordpress blog.
-			</article>
-			<article>
-				<h3>Browser addons</h3>
+				</div>
+
+				<input type="radio" name="code" id="wrpr"/>
+				<label for="wrpr">Wordpress</label>
+
+				<div class="hidden">
+					<a href="http://wordpress.org/plugins/share-on-diaspora/">Share on diaspora* Plugin</a>,
+					by <a href="https://joindiaspora.com/people/bf5954464d47fe88">Vitalie Ciubotaru</a>,
+					inserts a <em>Share on diaspora*</em> button onto your Wordpress blog.
+				</div>
+
 				<h4>Bookmarklet</h4>
 				Instead of using several bookmarklets for several pods, you can just drag this one:
-					<a href="javascript:(function(){f='http://sharetodiaspora.github.io/?url='+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent(document.title)+'&notes='+encodeURIComponent(''+(window.getSelection?window.getSelection():document.getSelection?document.getSelection():document.selection.createRange().text))+'&v=1&';a=function(){if(!window.open(f+'noui=1&jump=doclose','diasporav1','location=yes,links=no,scrollbars=yes,toolbar=no,width=620,height=550'))location.href=f+'jump=yes'};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()">Share on diaspora*</a> to your bookmarks bar.
-				<h4>Firefox</h4>
-				<a href="https://addons.mozilla.org/es/firefox/addon/diaspora-advanced-sharer/">diaspora Advanced Sharer</a> by <a href="https://iliketoast.net/u/jaywink">Jason Robinson</a> integrates d*AS into Mozilla Firefox.
+				<a href="javascript:(function(){f='http://sharetodiaspora.github.io/?url='+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent(document.title)+'&notes='+encodeURIComponent(''+(window.getSelection?window.getSelection():document.getSelection?document.getSelection():document.selection.createRange().text))+'&v=1&';a=function(){if(!window.open(f+'noui=1&jump=doclose','diasporav1','location=yes,links=no,scrollbars=yes,toolbar=no,width=620,height=550'))location.href=f+'jump=yes'};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()">Share on diaspora*</a> to your bookmarks bar.
+
+				<h4>Add-on for Firefox</h4>
+				<a href="https://addons.mozilla.org/es/firefox/addon/diaspora-advanced-sharer/">diaspora* Advanced Sharer</a>
+				by <a href="https://iliketoast.net/u/jaywink">Jason Robinson</a> adds a sharing button to Mozilla Firefox.
 			</article>
+
+			<article>
+				<h3>Contributors</h3>
+				Based on <i>diaspora* Sharing Service</i> by <a href="https://iliketoast.net/u/jaywink">Jason Robinson</a>.
+
+				<p></p>
+
+				Developed by <a href="https://joindiaspora.com/u/fdavidcl">David Charte</a>, with contributions from:
+				<ul>
+					<li><a href="https://iliketoast.net/u/jaywink">Jason Robinson</a></li>
+					<li><a href="https://diaspora-fr.org/u/cypouz">Cypouz</a></li>
+				</ul>
+
+				<p></p>
+
+				Localizations provided by:
+				<ul>
+					<li><a href="https://diasp.eu/u/kensan">Sandro Kensan</a> (Italian)</li>
+					<li><a href="https://joindiaspora.com/u/vitalie_ciubotaru">Vitalie Ciubotaru</a> (Russian)</li>
+				</ul>
+
+				<p></p>
+			</article>
+
 			<footer>
-				<div>
-					created by <a href="http://dia.so/bartimeo">David Charte</a><br />
-					based on <i>diaspora* Sharing Service</i> <span >by <a href="https://iliketoast.net/u/jaywink">Jason Robinson</a><br />
-					Thanks to all the diaspora* Community!!<br />
-					The source code is available at <a href="https://github.com/sharetodiaspora/sharetodiaspora.github.com">Github</a>. You are free to copy, modify and distribute it.
-				</div>
+				Want to help or fork the project? The source code is available at
+				<a href="https://github.com/sharetodiaspora/sharetodiaspora.github.com">Github</a>. You are free to copy, modify and distribute it.
 			</footer>
 		</div>
 	</body>

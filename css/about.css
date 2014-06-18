@@ -13,6 +13,11 @@ span.clear {
     max-width: 50em;
     margin: 0 auto;
 }
+
+header {
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 1em;
+}
 header h1 {
     display: inline-block;
     font-size: 200%;
@@ -21,11 +26,24 @@ header h1 {
     margin: 0;
     text-shadow: 0 1px 1px rgba(0,0,0,0.2);
 }
+header img {
+    max-width: 90%;
+    display: block;
+    margin: 0 auto;
+}
+header h2 {
+    text-align: center;
+    font-style: italic;
+    font-weight: 400;
+    color: #666;
+    font-size: 1.2em;
+}
+
 a {
-    color: #48a;
-    text-decoration: underline;
+    color: #368;
+    text-decoration: none;
 }	a:hover {
-        text-decoration: none;
+        text-decoration: underline;
     }
 pre {
     background: #eee;
@@ -37,6 +55,13 @@ pre {
 }	pre span {
         color: #b44;
     }
+
+h3 {
+    font-size: 160%;
+}
+h4 {
+    font-size: 130%;
+}
 h3, h4 {
     margin-bottom: .3em;
 }
@@ -53,3 +78,27 @@ footer {
 }	footer a {
         color: #467;
     }
+
+input[type="radio"] {
+    display: none;
+}
+input[type="radio"] + label {
+    display: block;
+    clear: both;
+    padding: .2em .4em;
+    margin: 0 0 .4em;
+    border: 1px solid #e0e0e0;
+    background: #fafafa;
+    cursor: pointer;
+    transition: background .1s ease;
+}
+input[type="radio"]:checked + label {
+    background: #eaeaea;
+}
+
+.hidden {
+    display: none;
+}
+input[type="radio"]:checked +label+ .hidden {
+    display: block;
+}
