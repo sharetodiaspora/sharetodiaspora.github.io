@@ -4,7 +4,8 @@
     "es",
     "fr",
     "it",
-    "ru"
+    "ru",
+    "de"
   ],
   "default_locale": "en",
   "resources": [
