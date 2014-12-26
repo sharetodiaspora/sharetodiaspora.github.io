@@ -1,0 +1,45 @@
+<diaspora "diaspora*">
+<name {
+  *long: "{{ diaspora }} Advanced Sharer",
+  short: "d*AS"
+}>
+<introduction "{{ name }} est un outil capable de partager n'importe quel lien sur n'importe quel pod {{ diaspora }}.">
+
+<features "Caractéristiques">
+<shareonany "Partager sur n'importe quel pod {{ diaspora }}, avec une liste des principaux pods pour partager plus vite.">
+<rememberlast "Retenir les 3 derniers pods choisis et les déplacer en haut de la liste. Cette fonctionnalité peut-être désactivée si vous le voulez.">
+<optshortening "Raccourcisseur d'URL optionnel (via <a href='http://j.mp'>j.mp</a>).">
+<optmarkdown "Synthaxe Markdown optionnelle">
+
+<privacy "Vie privée">
+<wedonttrack """
+{{ name.short }} ne garde aucune information sur l'utilisateur et ne le traque pas. {{ name }} est hébergé sur Github, Github peut garder les données de l'utilisateur à des fins statistiques. Les pods sont mémorisés dans un espace de stockage dans le navigateur de l'utilisateur. Les liens sont raccourcis par J.mp (appartenant à Bit.ly) uniquement si l'option est activée.""">
+
+<sharingbuttons "Boutons de partage">
+<templatesforbuttons "Ce sont des exemples de boutons de partage que vous pouvez utiliser pour votre site web ou votre blog.">
+<normalweb "Site web normal">
+<copytip "Copiez ce code HTML où vous souhaitez que le bouton apparaisse.">
+<withoutjs "Sans Javascript">
+<withjs "Avec Javascript">
+<alternatever "Version alternative avec texte">
+
+<bloggermethod """
+Cette méthode incluera un bouton de partage {{ name }} près du bouton de Google+. Il est nécessaire d'<a href="http://buzz.blogger.com/2010/06/new-share-buttons.html">activer le partage de boutons <sup>(en)</sup></a>.""">
+<bloggerstep1 "Allez sur <a href='http://www.blogger.com/home'>votre tableau de bord</a> et choisissez votre blog.">
+<bloggerstep2 "Dans la section <b>Modèle</b>, cliquez sur <b>Modifier le code HTML</b>. Si un message d'avertissement apparait, n'en tenez pas compte.">
+<bloggerstep3 "Cochez la case <b>Développer des modèles de gadgets</b>, pressez Ctrl+F et écrivez <i>sharebuttons</i>.">
+<bloggerstep41 "Trouvez la ligne">
+<bloggerstep42 "Juste après ça, copiez et collez le code suivant">
+
+<browseraddons "Extensions de navigateurs">
+<bookmarklet "Bookmarklet">
+<dragthis "A la place d'utiliser plusieurs extensions pour plusieurs pods, vous pouvez juste glisser/déposer celle-ci">
+<tobkmrkbar "dans votre barre de favoris">
+<by "par">
+<integrates "ajoute {{ name.short }} à Mozilla Firefox">
+<wordpressplugin "ajoute un bouton Partager sur {{ diaspora }} à votre blog Wordpress">
+
+<created "créé par">
+<based "basé sur">
+<thanks "Merci à toute la communauté {{ diaspora }} !">
+<sourcecode "Le code source est disponible sur <a href='https://github.com/sharetodiaspora/sharetodiaspora.github.com'>Github <sup>(en)</sup></a>. Vous êtes libre de le copier, modifier et distribuer.">
