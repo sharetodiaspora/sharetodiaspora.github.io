@@ -16,7 +16,7 @@
 		<title>Share on diaspora*</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="utf-8" />
-		<link rel="localization" href="/locales/manifest.json" />
+		<link rel="localization" href="./locales/manifest.json" />
 		<style>
 			body {
 				margin: 0;
@@ -238,7 +238,7 @@
 			var redirect = function() {
 				if (title===""&&url==="") {
 					document.querySelector('body').innerHTML = '';
-					location.href="/about";
+					location.href="./about";
 				} else {
 					if (localStorage.remember && localStorage.remember === "true" && localStorage.lastPod && redir !== "false") {
 						document.querySelector('body').innerHTML="Sharing <b>"+title+"</b> ("+url+") to "+localStorage.lastPod;
@@ -429,7 +429,7 @@
 			
 			window.onload = redirect;
 		</script>
-		<script type="text/javascript" src="/js/l20n.min.js"></script>
+		<script type="text/javascript" src="./js/l20n.min.js"></script>
 	</head>
 	<body>
 		<header>
@@ -466,12 +466,12 @@
 		<div class="bot_opt">
 			<input type="checkbox" id="remember" /><label for="remember" data-l10n-id="remember">Remember my choice, don't ask again</label>
 		</div>
-		<div class="advanced">
-			<h3 data-l10n-id="options">Advanced options</h3>
-			<input type="checkbox" id="markdown" /><label for="markdown" data-l10n-id="markdown">Use Markdown syntax for link</label><br />
-			<input type="checkbox" id="shorten" /><label for="shorten" data-l10n-id="shorten">Shorten URL (j.mp)</label><p>
-			<input type="checkbox" id="norem" /><label for="norem" data-l10n-id="noremember">Never remember my last 3 pods</label><br />
-			<a class="delete" id="delete" data-l10n-id="forget">Forget my last 3 pods</a>
-		</div>
+      <div class="advanced">
+        <h3 data-l10n-id="options">Advanced options</h3>
+        <input type="checkbox" id="markdown" /><label for="markdown" data-l10n-id="markdown">Use Markdown syntax for link</label><br />
+        <input type="checkbox" id="shorten" /><label for="shorten" data-l10n-id="shorten">Shorten URL (j.mp)</label><p>
+        <input type="checkbox" id="norem" /><label for="norem" data-l10n-id="noremember">Never remember my last 3 pods</label><br />
+        <a class="delete" id="delete" data-l10n-id="forget">Forget my last 3 pods</a>
+      </div>
 	</body>
 </html>
