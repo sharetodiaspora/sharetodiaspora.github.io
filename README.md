@@ -31,7 +31,7 @@ To avoid this, add the parameter `&redirect=false` on the URL.
 ## Contributing
 Any fixes and improvements are greatly appreciated. Feel 
 free to [fork the project](https://github.com/sharetodiaspora/sharetodiaspora.github.com/fork)
-and tinker away :)
+and tinker with it :)
 
 ### Translations
 We're currently using [L20n](https://github.com/l20n/l20n.js) 
