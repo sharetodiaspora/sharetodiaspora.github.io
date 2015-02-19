@@ -242,16 +242,15 @@
 				} else {
 					if (localStorage.remember && localStorage.remember === "true" && localStorage.lastPod && redir !== "false") {
 						document.querySelector('body').innerHTML="Sharing <b>"+title+"</b> ("+url+") to "+localStorage.lastPod;
-						
 						share(localStorage.lastPod);
 					} else {
 						document.getElementById('sharetitle').textContent = title;
 						document.getElementById('shareurl').textContent = url;
 						crealinks();
+            autopodslist();
 						return false;
 					}
 				}
-				
 			}
 			
 			// Creates links for pods used by the user
@@ -427,7 +426,32 @@
 				return true;
 			}
 			
-			window.onload = redirect;
+      // generate list for autocomplete pod url
+      var autopodslist = function() {
+        var script = document.createElement('script');
+        script.src = 'http://podupti.me/api.php?key=4r45tg&format=json&method=jsonp&callback=generatePodsList';
+        document.head.appendChild(script);
+      };
+      
+      // callback function to generate the pods list
+      function generatePodsList(result) {
+        if(typeof(result.podcount) !== 'undefined') {
+          var podsHtmlList = document.createElement('datalist');
+          podsHtmlList.setAttribute('id','podslist');
+          for(var i = 0; i < result.podcount; i++) {
+            var pod = result.pods[i];
+            if(pod.status.toLowerCase() === 'up') {
+              var optionHtml = document.createElement('option');
+              optionHtml.setAttribute('value', pod.domain);
+              podsHtmlList.appendChild(optionHtml);
+            }
+          }
+          document.getElementById('podinput').appendChild(podsHtmlList);
+          document.getElementById('podurl').setAttribute('list', 'podslist');
+        }
+      }
+
+      window.onload = redirect;
 		</script>
 		<script type="text/javascript" src="./js/l20n.min.js"></script>
 	</head>
