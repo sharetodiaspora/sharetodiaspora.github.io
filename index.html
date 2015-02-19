@@ -228,6 +228,7 @@
 			var url = decodeURIComponent(par('url'));
 			var notes = decodeURIComponent(par('notes'));
 			var redir = decodeURIComponent(par('redirect'));
+      var urlautolist = decodeURIComponent(par('urlautolist'));
 			var shortened = null;
 			var use_shortened = false;
 			var oldtit = title;
@@ -247,7 +248,9 @@
 						document.getElementById('sharetitle').textContent = title;
 						document.getElementById('shareurl').textContent = url;
 						crealinks();
-            autopodslist();
+            if(urlautolist !== 'none') {
+              autopodslist();
+            }
 						return false;
 					}
 				}
