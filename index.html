@@ -249,7 +249,7 @@
 						document.getElementById('shareurl').textContent = url;
 						crealinks();
             if(urlautolist !== 'none') {
-              autopodslist();
+              createpodautocomplete();
             }
 						return false;
 					}
@@ -430,18 +430,21 @@
 			}
 			
       // generate list for autocomplete pod url
-      var autopodslist = function() {
-        var script = document.createElement('script');
-        script.src = 'http://podupti.me/api.php?key=4r45tg&format=json&method=jsonp&callback=generatePodsList';
-        document.head.appendChild(script);
+      var createpodautocomplete = function() {
+        var now = Math.round(Date.now() / 1000);
+        if(localStorage.podslisttime && ((parseInt(localStorage.podslisttime) + 86400) > now)) {
+          loadpodslistfromlocalstorage();
+        } else {
+          var script = document.createElement('script');
+          script.src = 'http://podupti.me/api.php?key=4r45tg&format=json&method=jsonp&callback=loadpodslistfrompoduptime';
+          document.head.appendChild(script);
+        }
       };
       
-      // callback function to generate the pods list
-      function generatePodsList(result) {
+      // load pods list from poduptime site
+      var loadpodslistfrompoduptime = function(result) {
         if(typeof(result.podcount) !== 'undefined') {
-          var podsHtmlList = document.createElement('datalist');
-          var pods = []
-          podsHtmlList.setAttribute('id','podslist');
+          var pods = [];
           for(var i = 0; i < result.podcount; i++) {
             var pod = result.pods[i];
             if(pod.status.toLowerCase() === 'up') {
@@ -449,17 +452,30 @@
             }
           }
           pods = pods.sort();
+          localStorage.podslist = JSON.stringify(pods);
+          localStorage.podslisttime = Math.round(Date.now() / 1000);
+          generatepodslist(pods);
+        }
+      }
+
+      // load pods list from localstorage
+      var loadpodslistfromlocalstorage = function() {
+        var pods = JSON.parse(localStorage.podslist);
+        generatepodslist(pods);
+      }
+      
+      var generatepodslist = function(pods) {
+          var podsHtmlList = document.createElement('datalist');
+          podsHtmlList.setAttribute('id','podslist');
           for(var i = 0; i < pods.length; i++) {
-            var pod = pods[i];
             var optionHtml = document.createElement('option');
-            optionHtml.setAttribute('value', pod);
+            optionHtml.setAttribute('value', pods[i]);
             podsHtmlList.appendChild(optionHtml);
           }
           document.getElementById('podinput').appendChild(podsHtmlList);
           document.getElementById('podurl').setAttribute('list', 'podslist');
-        }
       }
-
+      
       window.onload = redirect;
 		</script>
 		<script type="text/javascript" src="./js/l20n.min.js"></script>
