@@ -1,471 +1,520 @@
 <!DOCTYPE html>
 <!--
 
-	diaspora* Advanced Sharer
-	   based on Diaspora* Sharing Service by Jason Robinson | jaywink@iliketoast.net
+  diaspora* Advanced Sharer
+     based on Diaspora* Sharing Service by Jason Robinson | jaywink@iliketoast.net
 
-	   Contributors:
-	      David Charte | bartimeo@joindiaspora.com
-	      Jason Robinson | jaywink@iliketoast.net
-	   
-	   This code is completely free. Don't hesitate to copy, modify or distribute it.
+     Contributors:
+        David Charte | bartimeo@joindiaspora.com
+        Jason Robinson | jaywink@iliketoast.net
+     
+     This code is completely free. Don't hesitate to copy, modify or distribute it.
 
 -->
 <html>
-	<head>
-		<title>Share on diaspora*</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta charset="utf-8" />
-		<link rel="localization" href="./locales/manifest.json" />
-		<style>
-			body {
-				margin: 0;
-				padding: 0 0 2em;
-				font-family: Helvetica, "Helvetica", Arial, sans-serif;
-				font-size: 15px;
-				max-height: 100%;
-			}
-			a {
-				color: #357;
-				text-decoration: underline;
-				-webkit-transition: opacity .1s ease;
-				-moz-transition: opacity .1s ease;
-				-o-transition: opacity .1s ease;
-				transition: opacity .1s ease;
-				cursor: pointer;
-			}
-			a:hover {
-				text-decoration: underline;
-			}
-			span.clear {
-				clear: both;
-				display: block;
-			}
-			header {
-				/***
-					The style for the header is from diaspora*
-						https://joindiaspora.com
-						https://github.com/diaspora/diaspora
-				***/
-				background-color: #222;
-				-webkit-box-shadow: 0 0 2px #777;
-				-moz-box-shadow: 0 0 2px #777;
-				box-shadow: 0 0 2px #777;
-				background-image: rgba(35,30,30,0.975);
-				//filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=rgb(35, 30, 30),endColorstr=#231e1e);
-				//-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=rgba(35, 30, 30, 0.95), endColorstr=#231e1e)";
-				background-image: -webkit-gradient(linear,0% 0,0% 100%,from(rgba(35,30,30,0.95)),to(#231e1e));
-				background-image: -moz-linear-gradient(top,rgba(35,30,30,0.95) 0,#231e1e 100%);
-				background-image: -o-linear-gradient(top,rgba(35,30,30,0.95) 0,#231e1e 100%);
-				color: #dadada;
-				padding: 8px 10px;
-			}	header h2 {
-					float: left;
-					font-size: inherit;
-					font-weight: inherit;
-					border-right: 1px solid #aaa;
-					padding: .6em 20px .6em 10px;
-					margin: 0;
-					display: none;
-				}
+  <head>
+    <title>Share on diaspora*</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <link rel="localization" href="./locales/manifest.json" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0 0 2em;
+        font-family: Helvetica, "Helvetica", Arial, sans-serif;
+        font-size: 15px;
+        max-height: 100%;
+      }
+      a {
+        color: #357;
+        text-decoration: underline;
+        -webkit-transition: opacity .1s ease;
+        -moz-transition: opacity .1s ease;
+        -o-transition: opacity .1s ease;
+        transition: opacity .1s ease;
+        cursor: pointer;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      span.clear {
+        clear: both;
+        display: block;
+      }
+      header {
+        /***
+          The style for the header is from diaspora*
+            https://joindiaspora.com
+            https://github.com/diaspora/diaspora
+        ***/
+        background-color: #222;
+        -webkit-box-shadow: 0 0 2px #777;
+        -moz-box-shadow: 0 0 2px #777;
+        box-shadow: 0 0 2px #777;
+        background-image: rgba(35,30,30,0.975);
+        //filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=rgb(35, 30, 30),endColorstr=#231e1e);
+        //-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=rgba(35, 30, 30, 0.95), endColorstr=#231e1e)";
+        background-image: -webkit-gradient(linear,0% 0,0% 100%,from(rgba(35,30,30,0.95)),to(#231e1e));
+        background-image: -moz-linear-gradient(top,rgba(35,30,30,0.95) 0,#231e1e 100%);
+        background-image: -o-linear-gradient(top,rgba(35,30,30,0.95) 0,#231e1e 100%);
+        color: #dadada;
+        padding: 8px 10px;
+      } header h2 {
+          float: left;
+          font-size: inherit;
+          font-weight: inherit;
+          border-right: 1px solid #aaa;
+          padding: .6em 20px .6em 10px;
+          margin: 0;
+          display: none;
+        }
 
-				@media screen and (min-width: 600px) {
-					header h2 {
-						display: block;
-					}
-				}
-				header #sharedet {
-					text-align: center;
-					margin: 0;
-					width: auto;
-				}	header #sharedet div {
-						display: block;
-						height: 1.2em;
-						max-height: 1.2em;
-						overflow: hidden;
-						white-space: nowrap;
-						text-overflow: ellipsis;
-						-o-text-overflow: ellipsis;
-						padding: 0 10px 0 20px;
-						color: #dadada;
-					}
-					header #sharedet #sharetitle {
-						font-weight: bold;
-					}
-			section {
-				width: auto;
-				float: left;
-				margin: 10px 0 0;
-				padding: 0px 20px;
-			}	h3 {
-					font-size: inherit;
-					font-weight: inherit;
-					color: #888;
-				}
-			section#podlist {
-				border-right: 1px solid #ccc;
-				min-width: 200px;
-			}	section#podlist a {
-					display: block;
-					border: 1px solid #eee;
-					padding: 0.2em 0.4em;
-					margin: 0 0 0.4em;
-					text-decoration: none;
-					color: #444;
-					-webkit-transition: border .2s ease, color .2s ease;
-					-moz-transition: border .2s ease, color .2s ease;
-					-o-transition: border .2s ease, color .2s ease;
-					transition: border .2s ease, color .2s ease;
-				}
-				section#podlist a.lastpod {
-					border-color: #bbcad0;
-					color: #222;
-				}
-				section#podlist a.hidepod {
-					display: none;
-				}
-				section#podlist a:hover {
-					border: 1px solid #888;
-					color: #000;
-				}
-			section#podinput {
-			
-			}	#podurl {
-					width: 200px;
-					padding: 3px 6px;
-					margin: 0;
-					font-size: 15px;
-					border: 1px solid silver;
-					-webkit-transition: .1s border-color ease;
-					-moz-transition: .1s border-color ease;
-					-o-transition: .1s border-color ease;
-					transition: .1s border-color ease;
-				}
-				#podurl:focus {
-					border: 1px solid #bbcad0;
-				}
-				#podurlsm {
-					margin: 0;
-					margin-top: 6px;
-					padding: 4px 10px;
-				}
-				:focus {
-					outline: none;
-				}
-				input.error, input#podurl.error {
-					border: 1px solid #a00;
-				}
-			span.check {
-				display: inline-block;
-				background: #f5f5f5;
-				border: 1px solid #eee;
-				padding-left: 3px;
-			}	span.check label {
-					display: inline-block;
-					padding: 5px 6px 4px 0;
-					font-size: 14px;
-					-webkit-transition: color .2s ease;
-					-moz-transition: color .2s ease;
-					-o-transition: color .2s ease;
-					transition: color .2s ease;
-				}
-				span.check input:checked + label {
-					color: #060;
-				}
-			div.bot_opt {
-				position: fixed;
-				bottom: 0;
-				height: 1.6em;
-				background: white;
-				border-top: 1px solid #aaa;
-				left: 0;
-				right: 0;
-				width: auto;
-				background: #fafafa;
-			}	div.bot_opt label {
-					display: inline-block;
-					width: auto;
-					margin: 0;
-					left: 0;
-					right: 0;
-					position: absolute;
-					padding-left: 1.6em;
-					top: 0;
-					bottom: 0;
-					height: auto;
-					font-size: 90%;
-					-webkit-transition: color .2s ease;
-					-moz-transition: color .2s ease;
-					-o-transition: color .2s ease;
-					transition: color .2s ease;
-				}
-				div.bot_opt :checked + label {
-					color: #060;
-				}
-			.advanced {
-				margin: 0.6em 1.3em;
-				display: inline-block;
-				color: #333;
-			}	.advanced label {
-					font-size: 90%;
-				}
-		</style>
-		<script type="text/javascript">
-			// Finds the values of URL parameters after "?"
-			var par = function(name){ /* from Netlobo.com (http://www.netlobo.com/url_query_string_javascript.html) */
-				var regexS = "[\\?&]"+name+"=([^&]*)";
-				var regex = new RegExp ( regexS );
-				var tmpURL = window.location.href;
+        @media screen and (min-width: 600px) {
+          header h2 {
+            display: block;
+          }
+        }
+        header #sharedet {
+          text-align: center;
+          margin: 0;
+          width: auto;
+        } header #sharedet div {
+            display: block;
+            height: 1.2em;
+            max-height: 1.2em;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+            padding: 0 10px 0 20px;
+            color: #dadada;
+          }
+          header #sharedet #sharetitle {
+            font-weight: bold;
+          }
+      section {
+        width: auto;
+        float: left;
+        margin: 10px 0 0;
+        padding: 0px 20px;
+      } h3 {
+          font-size: inherit;
+          font-weight: inherit;
+          color: #888;
+        }
+      section#podlist {
+        border-right: 1px solid #ccc;
+        min-width: 200px;
+      } section#podlist a {
+          display: block;
+          border: 1px solid #eee;
+          padding: 0.2em 0.4em;
+          margin: 0 0 0.4em;
+          text-decoration: none;
+          color: #444;
+          -webkit-transition: border .2s ease, color .2s ease;
+          -moz-transition: border .2s ease, color .2s ease;
+          -o-transition: border .2s ease, color .2s ease;
+          transition: border .2s ease, color .2s ease;
+        }
+        section#podlist a.lastpod {
+          border-color: #bbcad0;
+          color: #222;
+        }
+        section#podlist a.hidepod {
+          display: none;
+        }
+        section#podlist a:hover {
+          border: 1px solid #888;
+          color: #000;
+        }
+      section#podinput {
+      
+      } #podurl {
+          width: 200px;
+          padding: 3px 6px;
+          margin: 0;
+          font-size: 15px;
+          border: 1px solid silver;
+          -webkit-transition: .1s border-color ease;
+          -moz-transition: .1s border-color ease;
+          -o-transition: .1s border-color ease;
+          transition: .1s border-color ease;
+        }
+        #podurl:focus {
+          border: 1px solid #bbcad0;
+        }
+        #podurlsm {
+          margin: 0;
+          margin-top: 6px;
+          padding: 4px 10px;
+        }
+        :focus {
+          outline: none;
+        }
+        input.error, input#podurl.error {
+          border: 1px solid #a00;
+        }
+      span.check {
+        display: inline-block;
+        background: #f5f5f5;
+        border: 1px solid #eee;
+        padding-left: 3px;
+      } span.check label {
+          display: inline-block;
+          padding: 5px 6px 4px 0;
+          font-size: 14px;
+          -webkit-transition: color .2s ease;
+          -moz-transition: color .2s ease;
+          -o-transition: color .2s ease;
+          transition: color .2s ease;
+        }
+        span.check input:checked + label {
+          color: #060;
+        }
+      div.bot_opt {
+        position: fixed;
+        bottom: 0;
+        height: 1.6em;
+        background: white;
+        border-top: 1px solid #aaa;
+        left: 0;
+        right: 0;
+        width: auto;
+        background: #fafafa;
+      } div.bot_opt label {
+          display: inline-block;
+          width: auto;
+          margin: 0;
+          left: 0;
+          right: 0;
+          position: absolute;
+          padding-left: 1.6em;
+          top: 0;
+          bottom: 0;
+          height: auto;
+          font-size: 90%;
+          -webkit-transition: color .2s ease;
+          -moz-transition: color .2s ease;
+          -o-transition: color .2s ease;
+          transition: color .2s ease;
+        }
+        div.bot_opt :checked + label {
+          color: #060;
+        }
+      .advanced {
+        margin: 0.6em 1.3em;
+        display: inline-block;
+        color: #333;
+      } .advanced label {
+          font-size: 90%;
+        }
+    </style>
+    <script type="text/javascript">
+      // Finds the values of URL parameters after "?"
+      var par = function(name){ /* from Netlobo.com (http://www.netlobo.com/url_query_string_javascript.html) */
+        var regexS = "[\\?&]"+name+"=([^&]*)";
+        var regex = new RegExp ( regexS );
+        var tmpURL = window.location.href;
 
-				var results = regex.exec( tmpURL );
-				if( results == null )
-					return"";
-				else
-					return results[1];
-			}
-			
-			var title = decodeURIComponent(par('title'));
-			var url = decodeURIComponent(par('url'));
-			var notes = decodeURIComponent(par('notes'));
-			var redir = decodeURIComponent(par('redirect'));
-			var shortened = null;
-			var use_shortened = false;
-			var oldtit = title;
-			var oldurl = url;
-			var oldnot = notes;
-			
-			// Directly redirects or stays in the page
-			var redirect = function() {
-				if (title===""&&url==="") {
-					document.querySelector('body').innerHTML = '';
-					location.href="./about";
-				} else {
-					if (localStorage.remember && localStorage.remember === "true" && localStorage.lastPod && redir !== "false") {
-						document.querySelector('body').innerHTML="Sharing <b>"+title+"</b> ("+url+") to "+localStorage.lastPod;
-						
-						share(localStorage.lastPod);
-					} else {
-						document.getElementById('sharetitle').textContent = title;
-						document.getElementById('shareurl').textContent = url;
-						crealinks();
-						return false;
-					}
-				}
-				
-			}
-			
-			// Creates links for pods used by the user
-			var crealinks = function() {
-				var pods = document.querySelectorAll('#podlist a');
-				
-				if (localStorage['forget'] === 'true') {
-					document.getElementById('norem').checked='checked';
-				} else {
-					var stored_pods = [localStorage.lastPod, localStorage.lastPod2, localStorage.lastPod3];
+        var results = regex.exec( tmpURL );
+        if( results == null )
+          return"";
+        else
+          return results[1];
+      }
+      
+      var title = decodeURIComponent(par('title'));
+      var url = decodeURIComponent(par('url'));
+      var notes = decodeURIComponent(par('notes'));
+      var redir = decodeURIComponent(par('redirect'));
+      var urlautolist = decodeURIComponent(par('urlautolist'));
+      var shortened = null;
+      var use_shortened = false;
+      var oldtit = title;
+      var oldurl = url;
+      var oldnot = notes;
+      
+      // Directly redirects or stays in the page
+      var redirect = function() {
+        if (title===""&&url==="") {
+          document.querySelector('body').innerHTML = '';
+          location.href="./about";
+        } else {
+          if (localStorage.remember && localStorage.remember === "true" && localStorage.lastPod && redir !== "false") {
+            document.querySelector('body').innerHTML="Sharing <b>"+title+"</b> ("+url+") to "+localStorage.lastPod;
+            share(localStorage.lastPod);
+          } else {
+            document.getElementById('sharetitle').textContent = title;
+            document.getElementById('shareurl').textContent = url;
+            crealinks();
+            if(urlautolist !== 'none') {
+              createpodautocomplete();
+            }
+            return false;
+          }
+        }
+      }
+      
+      // Creates links for pods used by the user
+      var crealinks = function() {
+        var pods = document.querySelectorAll('#podlist a');
+        
+        if (localStorage['forget'] === 'true') {
+          document.getElementById('norem').checked='checked';
+        } else {
+          var stored_pods = [localStorage.lastPod, localStorage.lastPod2, localStorage.lastPod3];
 
-					for (var i in stored_pods) {
-						var p = stored_pods[i];
-						if (p) {
-							var an = document.createElement('a');
-							an.classList.add("lastpod");
-							an.title = p;
-							if (document.getElementsByTagName('body')[0].innerText) {
-								an.innerText = p;
-							} else {
-								an.textContent = p;
-							}
-							
-							for (i=0;i<pods.length;i++) {
-								if (pods[i].title === p) {
-									pods[i].classList.add("hidepod");
-								}
-							}
-							
-							document.getElementById('podlist').insertBefore(an, document.getElementById('first'));
-						}
-					}
-				}
-				
-				updlinks();
-				
-				document.getElementById('delete').onclick = forget;
-				
-				document.getElementById('shorten').onchange = toggleShorten;
+          for (var i in stored_pods) {
+            var p = stored_pods[i];
+            if (p) {
+              var an = document.createElement('a');
+              an.classList.add("lastpod");
+              an.title = p;
+              if (document.getElementsByTagName('body')[0].innerText) {
+                an.innerText = p;
+              } else {
+                an.textContent = p;
+              }
+              
+              for (i=0;i<pods.length;i++) {
+                if (pods[i].title === p) {
+                  pods[i].classList.add("hidepod");
+                }
+              }
+              
+              document.getElementById('podlist').insertBefore(an, document.getElementById('first'));
+            }
+          }
+        }
+        
+        updlinks();
+        
+        document.getElementById('delete').onclick = forget;
+        
+        document.getElementById('shorten').onchange = toggleShorten;
 
-				document.getElementById('markdown').onchange = toggleMarkdown;
+        document.getElementById('markdown').onchange = toggleMarkdown;
 
-				if (localStorage.markdown == "true") toggleMarkdown();
-				toggleShorten();
-			}
+        if (localStorage.markdown == "true") toggleMarkdown();
+        toggleShorten();
+      }
 
-			// Converts title and URL into Markdown syntax if necessary
-			var toggleMarkdown = function() {
-				var inserted = use_shortened ? shortened : url;
-				if (document.getElementById('markdown').checked) {
-					title = '['+title+']('+url+')';
-					url = ' ';
-					localStorage.markdown = "true";
-				} else {
-					title = oldtit;
-					url = oldurl;
-					localStorage.markdown = "false";
-				}
-				updlinks();
-			}
+      // Converts title and URL into Markdown syntax if necessary
+      var toggleMarkdown = function() {
+        var inserted = use_shortened ? shortened : url;
+        if (document.getElementById('markdown').checked) {
+          title = '['+title+']('+url+')';
+          url = ' ';
+          localStorage.markdown = "true";
+        } else {
+          title = oldtit;
+          url = oldurl;
+          localStorage.markdown = "false";
+        }
+        updlinks();
+      }
 
-			// Shortens url if necessary
-			var toggleShorten = function() {
-				use_shortened = document.getElementById('shorten').checked;
-				if (use_shortened && !shortened) {
-					var xhr = new XMLHttpRequest();
-					xhr.open("GET", "http://api.bitly.com/v3/shorten?login=bartimeo&apiKey=R_5fe8386a052e3f3d6ece604eab0c59db&format=txt&domain=j.mp&longUrl="+url);
-					xhr.onreadystatechange = function() { 
-						if(xhr.readyState == 4) { 
-							if(xhr.status==200) {
-								console.log(xhr.responseText);
-								shurl = decodeURIComponent(encodeURIComponent(xhr.responseText).replace("%0A",""));
-								document.querySelector("#shareurl").textContent = shurl;
-								toggleMarkdown();
-								updlinks();
-							} else {
-								console.log("Error:", xhr);
-							}
-						}
-					}
-					xhr.send();
-				} else if (!use_shortened) {
-					document.querySelector("#shareurl").textContent = oldurl;
-					toggleMarkdown();
-				}
-			}
-			
-			// Changes 'href' values of pod links
-			var updlinks = function() {
-				var pods = document.querySelectorAll('#podlist a');
-				var inserted = use_shortened ? shortened : url;
-				
-				for (i=0;i<pods.length;i++) {
-					var purl = "http://"+pods[i].title+"/bookmarklet?url="+encodeURIComponent(inserted)+"&title="+encodeURIComponent(title);
-					if (notes!=="") { purl += "&notes="+encodeURIComponent(notes); }
-					purl += "&jump=doclose";
-					pods[i].href = purl;
-					
-					pods[i].onclick = function() {
-						extras(this.title);
-					};
-				}
-			}
-			
-			// Stores information about used pods
-			var remember = function(l) {
-				if (localStorage.lastPod && localStorage.lastPod!==l) {
-					if (localStorage.lastPod2 && localStorage.lastPod2!==l) {
-						localStorage.lastPod3 = localStorage.lastPod2;
-					}
-					localStorage.lastPod2 = localStorage.lastPod;
-				}
-				localStorage.lastPod = l;
-				
-				return true;
-			}
-			
-			// Calculates URL and redirects (for direct redirection and custom pod)
-			var share = function(u) {
-				if (u!=="") {
-					extras(u);
-					var nu = /^http/.test(u) ? u : ("http://" + u);
-					nu += "/bookmarklet?url="+encodeURIComponent(url)+"&title="+encodeURIComponent(title);
-					if (notes!=="") { nu += "&notes="+encodeURIComponent(notes); }
-					nu += "&jump=doclose";
-					location.href = nu;
-				} else {
-					document.getElementById('podurl').className="error";
-				}
-			}
-			
-			// Frees stored user information about pods
-			var forget = function() {
-				localStorage.removeItem('lastPod');
-				localStorage.removeItem('lastPod2');
-				localStorage.removeItem('lastPod3');
-				var hidden = document.querySelectorAll('.hidepod');
-				for (var i in hidden) {
-					try {
-						hidden[i].classList.remove("hidepod");
-					} catch(e) {}
-				}
-				var lastpods = document.querySelectorAll('.lastpod');
-				for (var j in lastpods) {
-					try {
-						lastpods[j].parentNode.removeChild(lastpods[j]);
-					} catch(e) {}
-				}
-			}
-			
-			// Saves settings about pods and automatic redirection
-			var extras = function(l) {
-				// Retrieving current settings or saved settings
-				var r = document.getElementById('remember') ? document.getElementById('remember').checked : localStorage.remember == "true";
-				var nr = document.getElementById('norem') ? document.getElementById('norem').checked : localStorage.forget == "true";
-				
-				if (r) {
-					localStorage.remember = "true";
-				
-					if (nr) {
-						localStorage.lastPod = l;
-					}
-				} else {
-					localStorage.remember = "false";
-				}
-				
-				if (!nr) {
-					remember(l);
-				} else {
-					localStorage.forget = 'true';
-				}
-				
-				return true;
-			}
-			
-			window.onload = redirect;
-		</script>
-		<script type="text/javascript" src="./js/l20n.min.js"></script>
-	</head>
-	<body>
-		<header>
-			<h2 data-l10n-id="sharingtitle">Sharing</h2>
-			<div id="sharedet">
-				<div id="sharetitle"></div>
-				<div id="shareurl"></div>
-			</div>
-		</header>
-		<section id="podlist">
-			<h3 data-l10n-id="choose">Choose your diaspora* pod</h3>
-			<a title="joindiaspora.com" id="first">joindiaspora.com</a>
-			<a title="pod.geraspora.de">pod.geraspora.de</a>
-			<a title="diasp.eu">diasp.eu</a>
-			<a title="diasporabrazil.org">diasporabrazil.org</a>
-			<a title="podricing.org">podricing.org</a>
-			<a title="diasp.org">diasp.org</a>
-			<a title="framasphere.org">framasphere.org</a>
-			<a title="diaspora-fr.org">diaspora-fr.org</a>
-			<a title="diasp.de">diasp.de</a>
-			<a title="poddery.com">poddery.com</a>
-			<a title="nerdpol.ch">nerdpol.ch</a>
-			<a title="sechat.org">sechat.org</a>
-		</section>
-		<section id="podinput">
-			<h3 data-l10n-id="introduce">or introduce your pod URL</h3>
-			
-			<form onsubmit="share(document.getElementById('podurl').value); return false;" data-l10n-id="submitshare">
-				<input type="text" id="podurl" placeholder="Example: joindiaspora.com" value="" /><br />
-				<input type="submit" id="podurlsm" value="Share" />
-			</form>
-		</section>
-		<span class="clear"></span>
-		<div class="bot_opt">
-			<input type="checkbox" id="remember" /><label for="remember" data-l10n-id="remember">Remember my choice, don't ask again</label>
-		</div>
+      // Shortens url if necessary
+      var toggleShorten = function() {
+        use_shortened = document.getElementById('shorten').checked;
+        if (use_shortened && !shortened) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", "http://api.bitly.com/v3/shorten?login=bartimeo&apiKey=R_5fe8386a052e3f3d6ece604eab0c59db&format=txt&domain=j.mp&longUrl="+url);
+          xhr.onreadystatechange = function() { 
+            if(xhr.readyState == 4) { 
+              if(xhr.status==200) {
+                console.log(xhr.responseText);
+                shurl = decodeURIComponent(encodeURIComponent(xhr.responseText).replace("%0A",""));
+                document.querySelector("#shareurl").textContent = shurl;
+                toggleMarkdown();
+                updlinks();
+              } else {
+                console.log("Error:", xhr);
+              }
+            }
+          }
+          xhr.send();
+        } else if (!use_shortened) {
+          document.querySelector("#shareurl").textContent = oldurl;
+          toggleMarkdown();
+        }
+      }
+      
+      // Changes 'href' values of pod links
+      var updlinks = function() {
+        var pods = document.querySelectorAll('#podlist a');
+        var inserted = use_shortened ? shortened : url;
+        
+        for (i=0;i<pods.length;i++) {
+          var purl = "http://"+pods[i].title+"/bookmarklet?url="+encodeURIComponent(inserted)+"&title="+encodeURIComponent(title);
+          if (notes!=="") { purl += "&notes="+encodeURIComponent(notes); }
+          purl += "&jump=doclose";
+          pods[i].href = purl;
+          
+          pods[i].onclick = function() {
+            extras(this.title);
+          };
+        }
+      }
+      
+      // Stores information about used pods
+      var remember = function(l) {
+        if (localStorage.lastPod && localStorage.lastPod!==l) {
+          if (localStorage.lastPod2 && localStorage.lastPod2!==l) {
+            localStorage.lastPod3 = localStorage.lastPod2;
+          }
+          localStorage.lastPod2 = localStorage.lastPod;
+        }
+        localStorage.lastPod = l;
+        
+        return true;
+      }
+      
+      // Calculates URL and redirects (for direct redirection and custom pod)
+      var share = function(u) {
+        if (u!=="") {
+          extras(u);
+          var nu = /^http/.test(u) ? u : ("http://" + u);
+          nu += "/bookmarklet?url="+encodeURIComponent(url)+"&title="+encodeURIComponent(title);
+          if (notes!=="") { nu += "&notes="+encodeURIComponent(notes); }
+          nu += "&jump=doclose";
+          location.href = nu;
+        } else {
+          document.getElementById('podurl').className="error";
+        }
+      }
+      
+      // Frees stored user information about pods
+      var forget = function() {
+        localStorage.removeItem('lastPod');
+        localStorage.removeItem('lastPod2');
+        localStorage.removeItem('lastPod3');
+        var hidden = document.querySelectorAll('.hidepod');
+        for (var i in hidden) {
+          try {
+            hidden[i].classList.remove("hidepod");
+          } catch(e) {}
+        }
+        var lastpods = document.querySelectorAll('.lastpod');
+        for (var j in lastpods) {
+          try {
+            lastpods[j].parentNode.removeChild(lastpods[j]);
+          } catch(e) {}
+        }
+      }
+      
+      // Saves settings about pods and automatic redirection
+      var extras = function(l) {
+        // Retrieving current settings or saved settings
+        var r = document.getElementById('remember') ? document.getElementById('remember').checked : localStorage.remember == "true";
+        var nr = document.getElementById('norem') ? document.getElementById('norem').checked : localStorage.forget == "true";
+        
+        if (r) {
+          localStorage.remember = "true";
+        
+          if (nr) {
+            localStorage.lastPod = l;
+          }
+        } else {
+          localStorage.remember = "false";
+        }
+        
+        if (!nr) {
+          remember(l);
+        } else {
+          localStorage.forget = 'true';
+        }
+        
+        return true;
+      }
+      
+      // generate list for autocomplete pod url
+      var createpodautocomplete = function() {
+        var now = Math.round(Date.now() / 1000);
+        if(localStorage.podslisttime && ((parseInt(localStorage.podslisttime) + 86400) > now)) {
+          loadpodslistfromlocalstorage();
+        } else {
+          var script = document.createElement('script');
+          script.src = 'http://podupti.me/api.php?key=4r45tg&format=json&method=jsonp&callback=loadpodslistfrompoduptime';
+          document.head.appendChild(script);
+        }
+      };
+      
+      // load pods list from poduptime site
+      var loadpodslistfrompoduptime = function(result) {
+        if(typeof(result.podcount) !== 'undefined') {
+          var pods = [];
+          for(var i = 0; i < result.podcount; i++) {
+            var pod = result.pods[i];
+            if(pod.status.toLowerCase() === 'up') {
+              pods[pods.length] = pod.domain;
+            }
+          }
+          pods = pods.sort();
+          localStorage.podslist = JSON.stringify(pods);
+          localStorage.podslisttime = Math.round(Date.now() / 1000);
+          generatepodslist(pods);
+        }
+      }
+
+      // load pods list from localstorage
+      var loadpodslistfromlocalstorage = function() {
+        var pods = JSON.parse(localStorage.podslist);
+        generatepodslist(pods);
+      }
+      
+      var generatepodslist = function(pods) {
+          var podsHtmlList = document.createElement('datalist');
+          podsHtmlList.setAttribute('id','podslist');
+          for(var i = 0; i < pods.length; i++) {
+            var optionHtml = document.createElement('option');
+            optionHtml.setAttribute('value', pods[i]);
+            podsHtmlList.appendChild(optionHtml);
+          }
+          document.getElementById('podinput').appendChild(podsHtmlList);
+          document.getElementById('podurl').setAttribute('list', 'podslist');
+      }
+      
+      window.onload = redirect;
+    </script>
+    <script type="text/javascript" src="./js/l20n.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <h2 data-l10n-id="sharingtitle">Sharing</h2>
+      <div id="sharedet">
+        <div id="sharetitle"></div>
+        <div id="shareurl"></div>
+      </div>
+    </header>
+    <section id="podlist">
+      <h3 data-l10n-id="choose">Choose your diaspora* pod</h3>
+      <a title="joindiaspora.com" id="first">joindiaspora.com</a>
+      <a title="pod.geraspora.de">pod.geraspora.de</a>
+      <a title="diasp.eu">diasp.eu</a>
+      <a title="diasporabrazil.org">diasporabrazil.org</a>
+      <a title="podricing.org">podricing.org</a>
+      <a title="diasp.org">diasp.org</a>
+      <a title="framasphere.org">framasphere.org</a>
+      <a title="diaspora-fr.org">diaspora-fr.org</a>
+      <a title="diasp.de">diasp.de</a>
+      <a title="poddery.com">poddery.com</a>
+      <a title="nerdpol.ch">nerdpol.ch</a>
+      <a title="sechat.org">sechat.org</a>
+    </section>
+    <section id="podinput">
+      <h3 data-l10n-id="introduce">or introduce your pod URL</h3>
+      
+      <form onsubmit="share(document.getElementById('podurl').value); return false;" data-l10n-id="submitshare">
+        <input type="text" id="podurl" placeholder="Example: joindiaspora.com" value="" /><br />
+        <input type="submit" id="podurlsm" value="Share" />
+      </form>
+    </section>
+    <span class="clear"></span>
+    <div class="bot_opt">
+      <input type="checkbox" id="remember" /><label for="remember" data-l10n-id="remember">Remember my choice, don't ask again</label>
+    </div>
       <div class="advanced">
         <h3 data-l10n-id="options">Advanced options</h3>
         <input type="checkbox" id="markdown" /><label for="markdown" data-l10n-id="markdown">Use Markdown syntax for link</label><br />
@@ -473,5 +522,5 @@
         <input type="checkbox" id="norem" /><label for="norem" data-l10n-id="noremember">Never remember my last 3 pods</label><br />
         <a class="delete" id="delete" data-l10n-id="forget">Forget my last 3 pods</a>
       </div>
-	</body>
+  </body>
 </html>
