@@ -5,7 +5,8 @@
     gerund: "Share"
 }>
 <sharingtitle "{{ share.gerund }}">
-<submitshare "<input placeholder='Beispiel: joindiaspora.com' /><br /><input value='{{ share }}' />">
+<example "Beispiel">
+<submitshare "<input value='{{ share }}' />">
 
 <choose "Wähle Deinen {{ diaspora }} pod">
 <introduce "oder gibt Deine pod-URL ein">

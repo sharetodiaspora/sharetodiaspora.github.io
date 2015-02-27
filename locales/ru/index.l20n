@@ -4,7 +4,8 @@
     gerund: "Делимся"
 }>
 <sharingtitle "{{ share.gerund }}">
-<submitshare "<input placeholder='Пример: joindiaspora.com' /><br /><input value='{{ share }}' />">
+<example "Пример">
+<submitshare "<input value='{{ share }}' />">
 
 <choose "Выбери свой сервер {{ diaspora }}">
 <introduce "или введи URL своего сервера">
