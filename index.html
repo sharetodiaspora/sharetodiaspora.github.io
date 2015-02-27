@@ -474,6 +474,7 @@
           }
           document.getElementById('podinput').appendChild(podsHtmlList);
           document.getElementById('podurl').setAttribute('list', 'podslist');
+          document.getElementById('podurl').placeholder="Example: " + pods[Math.floor(Math.random() * pods.length)];
       }
       
       window.onload = redirect;
