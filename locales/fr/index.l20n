@@ -1,7 +1,8 @@
 <diaspora "diaspora*">
 <share "Partager">
 <sharingtitle "{{ share }}">
-<submitshare "<input placeholder='Exemple : joindiaspora.com' /><br /><input value='{{ share }}' />">
+<example "Exemple">
+<submitshare "<input value='{{ share }}' />">
 
 <choose "Choisis ton pod {{ diaspora }}">
 <introduce "ou insère l'URL de ton pod">

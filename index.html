@@ -7,7 +7,7 @@
      Contributors:
         David Charte | bartimeo@joindiaspora.com
         Jason Robinson | jaywink@iliketoast.net
-     
+
      This code is completely free. Don't hesitate to copy, modify or distribute it.
 
 -->
@@ -129,7 +129,7 @@
           color: #000;
         }
       section#podinput {
-      
+
       } #podurl {
           width: 200px;
           padding: 3px 6px;
@@ -223,7 +223,7 @@
         else
           return results[1];
       }
-      
+
       var title = decodeURIComponent(par('title'));
       var url = decodeURIComponent(par('url'));
       var notes = decodeURIComponent(par('notes'));
@@ -234,7 +234,7 @@
       var oldtit = title;
       var oldurl = url;
       var oldnot = notes;
-      
+
       // Directly redirects or stays in the page
       var redirect = function() {
         if (title===""&&url==="") {
@@ -255,11 +255,11 @@
           }
         }
       }
-      
+
       // Creates links for pods used by the user
       var crealinks = function() {
         var pods = document.querySelectorAll('#podlist a');
-        
+
         if (localStorage['forget'] === 'true') {
           document.getElementById('norem').checked='checked';
         } else {
@@ -276,22 +276,22 @@
               } else {
                 an.textContent = p;
               }
-              
+
               for (i=0;i<pods.length;i++) {
                 if (pods[i].title === p) {
                   pods[i].classList.add("hidepod");
                 }
               }
-              
+
               document.getElementById('podlist').insertBefore(an, document.getElementById('first'));
             }
           }
         }
-        
+
         updlinks();
-        
+
         document.getElementById('delete').onclick = forget;
-        
+
         document.getElementById('shorten').onchange = toggleShorten;
 
         document.getElementById('markdown').onchange = toggleMarkdown;
@@ -321,8 +321,8 @@
         if (use_shortened && !shortened) {
           var xhr = new XMLHttpRequest();
           xhr.open("GET", "http://api.bitly.com/v3/shorten?login=bartimeo&apiKey=R_5fe8386a052e3f3d6ece604eab0c59db&format=txt&domain=j.mp&longUrl="+url);
-          xhr.onreadystatechange = function() { 
-            if(xhr.readyState == 4) { 
+          xhr.onreadystatechange = function() {
+            if(xhr.readyState == 4) {
               if(xhr.status==200) {
                 console.log(xhr.responseText);
                 shurl = decodeURIComponent(encodeURIComponent(xhr.responseText).replace("%0A",""));
@@ -340,24 +340,24 @@
           toggleMarkdown();
         }
       }
-      
+
       // Changes 'href' values of pod links
       var updlinks = function() {
         var pods = document.querySelectorAll('#podlist a');
         var inserted = use_shortened ? shortened : url;
-        
+
         for (i=0;i<pods.length;i++) {
           var purl = "http://"+pods[i].title+"/bookmarklet?url="+encodeURIComponent(inserted)+"&title="+encodeURIComponent(title);
           if (notes!=="") { purl += "&notes="+encodeURIComponent(notes); }
           purl += "&jump=doclose";
           pods[i].href = purl;
-          
+
           pods[i].onclick = function() {
             extras(this.title);
           };
         }
       }
-      
+
       // Stores information about used pods
       var remember = function(l) {
         if (localStorage.lastPod && localStorage.lastPod!==l) {
@@ -367,10 +367,10 @@
           localStorage.lastPod2 = localStorage.lastPod;
         }
         localStorage.lastPod = l;
-        
+
         return true;
       }
-      
+
       // Calculates URL and redirects (for direct redirection and custom pod)
       var share = function(u) {
         if (u!=="") {
@@ -384,7 +384,7 @@
           document.getElementById('podurl').className="error";
         }
       }
-      
+
       // Frees stored user information about pods
       var forget = function() {
         localStorage.removeItem('lastPod');
@@ -403,32 +403,32 @@
           } catch(e) {}
         }
       }
-      
+
       // Saves settings about pods and automatic redirection
       var extras = function(l) {
         // Retrieving current settings or saved settings
         var r = document.getElementById('remember') ? document.getElementById('remember').checked : localStorage.remember == "true";
         var nr = document.getElementById('norem') ? document.getElementById('norem').checked : localStorage.forget == "true";
-        
+
         if (r) {
           localStorage.remember = "true";
-        
+
           if (nr) {
             localStorage.lastPod = l;
           }
         } else {
           localStorage.remember = "false";
         }
-        
+
         if (!nr) {
           remember(l);
         } else {
           localStorage.forget = 'true';
         }
-        
+
         return true;
       }
-      
+
       // generate list for autocomplete pod url
       var createpodautocomplete = function() {
         var now = Math.round(Date.now() / 1000);
@@ -440,7 +440,7 @@
           document.head.appendChild(script);
         }
       };
-      
+
       // load pods list from poduptime site
       var loadpodslistfrompoduptime = function(result) {
         if(typeof(result.podcount) !== 'undefined') {
@@ -463,7 +463,7 @@
         var pods = JSON.parse(localStorage.podslist);
         generatepodslist(pods);
       }
-      
+
       var generatepodslist = function(pods) {
           var podsHtmlList = document.createElement('datalist');
           podsHtmlList.setAttribute('id','podslist');
@@ -474,8 +474,9 @@
           }
           document.getElementById('podinput').appendChild(podsHtmlList);
           document.getElementById('podurl').setAttribute('list', 'podslist');
+          document.getElementById('podurl').placeholder = pods[Math.floor(Math.random() * pods.length)];
       }
-      
+
       window.onload = redirect;
     </script>
     <script type="text/javascript" src="./js/l20n.min.js"></script>
@@ -505,10 +506,12 @@
     </section>
     <section id="podinput">
       <h3 data-l10n-id="introduce">or introduce your pod URL</h3>
-      
-      <form onsubmit="share(document.getElementById('podurl').value); return false;" data-l10n-id="submitshare">
-        <input type="text" id="podurl" placeholder="Example: joindiaspora.com" value="" /><br />
-        <input type="submit" id="podurlsm" value="Share" />
+
+      <form onsubmit="share(document.getElementById('podurl').value); return false;">
+        <input type="text" id="podurl" placeholder="joindiaspora.com" value="" /><br />
+        <span data-l10n-id="submitshare">
+          <input type="submit" id="podurlsm" data-l10n-id="submitshare" value="Share" />
+        </span>
       </form>
     </section>
     <span class="clear"></span>
