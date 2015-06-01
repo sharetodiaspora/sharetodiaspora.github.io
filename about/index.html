@@ -1,3 +1,7 @@
+---
+
+---
+
 <!DOCTYPE html>
 <!--
 
@@ -13,9 +17,22 @@
 -->
 <html>
 	<head>
+		{% if site.enforce_ssl %}
+		<!-- 
+		     Enforcing SSL
+		     https://konklone.com/post/github-pages-now-sorta-supports-https-so-use-it
+		-->
+		<script type="text/javascript">
+			var enforce = "{{ site.enforce_ssl }}";
+			if ((enforce == window.location.host) && (window.location.protocol != "https:"))
+			window.location = window.location.toString().replace(/^http:/, "https:");
+		</script>
+		{% endif %}
+
 		<title>Advanced Sharer for diaspora*</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta charset="utf-8" />
+		<link rel="canonical" href="https://sharetodiaspora.github.io/about/" />
 		<link rel="stylesheet" href="../css/about.css">
 		<link rel="localization" href="../locales/manifest.json" />
 		<script type="text/javascript" src="../js/l20n.min.js"></script>
