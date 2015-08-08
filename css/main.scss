@@ -1,0 +1,82 @@
+---
+---
+
+$foreground: #222;
+$sidepanning: 1.2rem;
+$vertpanning: 0.6rem;
+
+body {
+  margin: 0;
+  padding: 0;
+
+  color: $foreground;
+  font-family: Open Sans, sans-serif;
+
+  header {
+    padding: $vertpanning $sidepanning;
+
+    background: $foreground;
+    color: #dadada;
+    font-size: 0.95rem;
+
+    .head-title {
+      display: inline;
+    }
+
+    .details {
+      display: inline;
+      text-align: center;
+
+      .title {
+        display: inline;
+      }
+      .title:before, .title:after {
+        content: '"';
+      }
+
+      .url {
+        display: inline;
+      }
+      .url:before {
+        content: '(';
+      }
+      .url:after {
+        content: ')';
+      }
+    }
+  }
+
+  .search {
+    padding-right: $sidepanning * 2;
+
+    input[type="search"] {
+      width: 100%;
+      padding: $vertpanning $sidepanning;
+      font-size: 1rem;
+
+      border: 0px solid $foreground;
+      box-shadow: inset 0 0 5px -2px rgba(0,0,0,0.8);
+    }
+  }
+
+  .pod-list {
+    a {
+      display: block;
+      margin: $vertpanning $sidepanning;
+      padding: $vertpanning $sidepanning;
+
+      text-decoration: none;
+      color: $foreground;
+      border: solid lighten($foreground, 60%);
+      border-width: 1px;
+    }
+  }
+
+  .options {
+    padding: $vertpanning $sidepanning;
+
+    label {
+      display: block;
+    }
+  }
+}
