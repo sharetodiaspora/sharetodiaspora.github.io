@@ -1,0 +1,47 @@
+<diaspora "Diaspora*">
+<name {
+  *long: "{{ diaspora }} - Zaawansowane Współdzielenie",
+  short: "d*ZW"
+}>
+<introduction "{{ name }} jest narzędziem współdzielenia odnośników na dowolny pod sieci {{ diaspora }}.">
+
+<features "Możliwości">
+<shareonany "Współdzielenie na dowolny pod sieci {{ diaspora }}, korzystając z wygodnej listy popularnych podów.">
+<rememberlast "Opcjonalne zapamiętywanie 3 ostatnio wybranych podów, i przenoszenie ich na górę listy.">
+<optshortening "Opcjonalne skracanie odnośników (za pomocą <a href='http://j.mp'>j.mp</a>).">
+<optmarkdown "Opcjonalne formatowanie Markdown.">
+
+<privacy "Prywatność">
+<wedonttrack """
+{{ name.short }} nie śledzi użytkowników ani nie zbiera o nich żadnych informacji. Jako że jest hostowany na GitHubie, GitHub może zbierać dane o użytkownikach w celach statystycznych. Lista podów przechowywana jest w przeglądarce użytkownika (za pomocą mechanizmu localStorage). Współdzielony odnośnik przekazywany jest do j.mp (od Bit.ly) wyłącznie jeśli skracanie odnośników jest włączone.
+""">
+
+<sharingbuttons "Przyciski współdzielenia">
+<templatesforbuttons "Szablony przycisków współdzielenia, z których możesz skorzystać na swojej stronie lub blogu.">
+<normalweb "Strona internetowa">
+<copytip "Skopiuj ten kod HTML i wklej go na swojej stronie w miejscu, w którym chcesz, by pojawił sie przycisk współdzielenia.">
+<withoutjs "Bez Javaskryptu">
+<withjs "Z Javaskryptem">
+<alternatever "Wersja alternatywna z tekstem">
+
+<bloggermethod """
+Ta metoda umieści przycisk {{ name }} obok przycisku Google +1. Niezbędne jest <a href="http://buzz.blogger.com/2010/06/new-share-buttons.html">włączenie przycisków współdzielenia</a>.
+""">
+<bloggerstep1 "Odwiedź <a href='http://www.blogger.com/home'>swój dashboard</a> i wybierz swojego bloga.">
+<bloggerstep2 "W sekcji <b>Template</b>, kliknij <b>Edit HTML</b>. Jeśli pojawi się ostrzeżenie, kliknij <b>Continue</b>.">
+<bloggerstep3 "Zaznacz <b>Expand widget templates</b>, wciśnij Ctrl+F i wpisz <i>sharebuttons</i>.">
+<bloggerstep41 "Znajdź linię">
+<bloggerstep42 "Bezpośrednio za nią wklej ten kod">
+
+<browseraddons "Dodatki do przeglądarek">
+<bookmarklet "Bookmarklet">
+<dragthis "Zamiast używać różnych bookmarkletów dla różnych podów, możesz po prostu przeciągnąć ten">
+<tobkmrkbar "do swoich zakładek">
+<by "za pomocą">
+<integrates "integruje {{ name.short }} z przeglądarką Mozilla Firefox">
+<wordpressplugin "umieszcza przycisk Podziel się w sieci {{ diaspora }} na Wordpressie">
+
+<created "stworzone przez">
+<based "oparte na">
+<thanks "Podziękowania dla całej Społeczności sieci {{ diaspora }}!!">
+<sourcecode "Kod źródłowy dostępny jest na <a href='https://github.com/sharetodiaspora/sharetodiaspora.github.com'>Githubie</a>. Możesz go swobodnie kopiować, rozpowszechniać i modyfikować.">
