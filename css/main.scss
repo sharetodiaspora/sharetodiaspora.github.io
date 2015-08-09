@@ -2,6 +2,7 @@
 ---
 
 $foreground: #222;
+$accent: #c0e6fa;
 $sidepadding: 1.2rem;
 $vertpadding: 0.6rem;
 $tabletmode: 768px;
@@ -97,7 +98,7 @@ body {
         font-size: 1rem;
 
         border: 0px solid lighten($foreground, 60%);
-        box-shadow: inset 0 0 5px -2px rgba(0,0,0,0.8);
+        box-shadow: inset 0 0 12px -5px rgba(0,0,0,0.4);
 
         @media screen and (min-width: $tabletmode) {
           border-width: 1px;
@@ -123,6 +124,11 @@ body {
         border-width: 1px;
 
         transition: box-shadow .15s ease, background .15s ease, color .15s ease;
+
+        &.selected {
+          background: $accent;
+          box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
+        }
 
         &:hover {
           color: lighten($foreground, 20%);
