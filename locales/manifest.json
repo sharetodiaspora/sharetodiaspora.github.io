@@ -5,7 +5,8 @@
     "fr",
     "it",
     "ru",
-    "de"
+    "de",
+    "pl"
   ],
   "default_locale": "en",
   "resources": [
