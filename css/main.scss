@@ -2,8 +2,10 @@
 ---
 
 $foreground: #222;
-$sidepanning: 1.2rem;
-$vertpanning: 0.6rem;
+$sidepadding: 1.2rem;
+$vertpadding: 0.6rem;
+$tabletmode: 768px;
+$desktopmode: 1024px;
 
 body {
   margin: 0;
@@ -13,7 +15,11 @@ body {
   font-family: Open Sans, sans-serif;
 
   header {
-    padding: $vertpanning $sidepanning;
+    padding: $vertpadding $sidepadding;
+
+    @media screen and (min-width: $desktopmode) {
+      padding: $vertpadding 10%;
+    }
 
     background: $foreground;
     color: #dadada;
@@ -21,6 +27,13 @@ body {
 
     .head-title {
       display: inline;
+
+      @media screen and (min-width: $tabletmode) {
+        float: left;
+        display: block;
+        height: 100%;
+        padding: $vertpadding 0;
+      }
     }
 
     .details {
@@ -29,54 +42,107 @@ body {
 
       .title {
         display: inline;
-      }
-      .title:before, .title:after {
-        content: '"';
+        font-weight: bold;
+
+        @media screen and (min-width: $tabletmode) {
+          display: block;
+        }
       }
 
       .url {
         display: inline;
+
+        @media screen and (min-width: $tabletmode) {
+          display: block;
+        }
       }
       .url:before {
-        content: '(';
+        @media screen and (max-width: $tabletmode) {
+          content: '(';
+        }
       }
       .url:after {
-        content: ')';
+        @media screen and (max-width: $tabletmode) {
+          content: ')';
+        }
       }
     }
   }
 
-  .search {
-    padding-right: $sidepanning * 2;
+  .wrapper {
 
-    input[type="search"] {
-      width: 100%;
-      padding: $vertpanning $sidepanning;
-      font-size: 1rem;
-
-      border: 0px solid $foreground;
-      box-shadow: inset 0 0 5px -2px rgba(0,0,0,0.8);
+    @media screen and (min-width: $tabletmode) {
+      padding: 2*$vertpadding $sidepadding;
     }
-  }
 
-  .pod-list {
-    a {
-      display: block;
-      margin: $vertpanning $sidepanning;
-      padding: $vertpanning $sidepanning;
-
-      text-decoration: none;
-      color: $foreground;
-      border: solid lighten($foreground, 60%);
-      border-width: 1px;
+    @media screen and (min-width: $desktopmode) {
+      width: 80%;
+      margin: 0 auto;
+      padding: 2*$vertpadding 0;
     }
-  }
 
-  .options {
-    padding: $vertpanning $sidepanning;
+    .search {
+      padding-right: $sidepadding * 2;
 
-    label {
-      display: block;
+      @media screen and (min-width: $tabletmode) {
+        width: 40%;
+        float: left;
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      input[type="search"] {
+        width: 100%;
+        padding: $vertpadding $sidepadding;
+        font-size: 1rem;
+
+        border: 0px solid lighten($foreground, 60%);
+        box-shadow: inset 0 0 5px -2px rgba(0,0,0,0.8);
+
+        @media screen and (min-width: $tabletmode) {
+          border-width: 1px;
+        }
+      }
+    }
+
+    .pod-list {
+      @media screen and (min-width: $tabletmode) {
+        display: inline-block;
+        float: right;
+        width: 50%;
+      }
+
+      a {
+        display: block;
+        margin: 0 0 $vertpadding;
+        padding: $vertpadding $sidepadding;
+
+        text-decoration: none;
+        color: $foreground;
+        border: solid lighten($foreground, 60%);
+        border-width: 1px;
+
+        transition: box-shadow .15s ease, background .15s ease, color .15s ease;
+
+        &:hover {
+          color: lighten($foreground, 20%);
+          box-shadow: 0 0 12px -5px rgba(0,0,0,0.4);
+        }
+      }
+    }
+
+    .options {
+      margin-top: 2*$vertpadding;
+
+      @media screen and (min-width: $tabletmode) {
+        float: left;
+        display: inline-block;
+        width: 40%;
+      }
+
+      label {
+        display: block;
+      }
     }
   }
 }
