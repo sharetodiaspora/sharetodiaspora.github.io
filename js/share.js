@@ -16,38 +16,41 @@ var Parameters = (function() {
       return decodeURIComponent(results[1]);
   }
 
-  var title = par("title"),
-    url = par("url"),
-    usingMarkdown = false
-
   return {
-    title: title,
-    url: url,
+    title: par("title"),
+    url: par("url"),
     notes: par("notes"),
     redir: par("redirect"),
+    reloadPods: par("refresh"),
     urlautolist: par("urlautolist"),
     shortened: null,
-    use_shortened: false,
 
-    toggleMarkdown: function() {
-      if (!usingMarkdown) {
-        this.title = "[" + title + "](" + url + ")"
-        this.url = ""
-      } else {
-        this.title = title
-        this.url = url
+    shorten: function() {
+      if (!this.shortened) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://api.bitly.com/v3/shorten?login=bartimeo&apiKey=R_5fe8386a052e3f3d6ece604eab0c59db&format=txt&domain=j.mp&longUrl=" + url);
+
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4) {
+            if (xhr.status == 200) {
+              console.log(xhr.responseText);
+              this.shortened = decodeURIComponent(encodeURIComponent(xhr.responseText).replace("%0A",""));
+            } else {
+              console.log("Error:", xhr);
+            }
+          }
+        }
+        xhr.send();
       }
-    },
+    }
+  };
+})();
 
-    toggleShorten
-  }
-})
-
-//
+// PodLoader: Module for load and storage of a list of pods from Poduptime
 var PodLoader = (function() {
   "use strict";
 
-  var now = Math.round(Date.now() / 1000)
+  var now = Math.round(Date.now() / 1000);
 
   function generateList(pods) {
     /*var podsHtmlList = document.createElement('datalist');
@@ -63,17 +66,21 @@ var PodLoader = (function() {
     document.getElementById('podurl').setAttribute('list', 'podslist');
     document.getElementById('podurl').placeholder = pods[Math.floor(Math.random() * pods.length)];*/
 
-    var target = document.querySelector(".pod-list")
+    var target = document.querySelector(".pod-list");
 
     for (var i = 0; i < pods.length; i++) {
       if (pods[i]) {
-        var link = document.createElement("a")
-        link.textContent = pods[i]
-        target.appendChild(link)
+        var link = document.createElement("a");
+
+        link.href = "https://" + pods[i] + "/stream";
+        link.setAttribute("data-pod-url", "http://" + pods[i]);
+        link.textContent = pods[i];
+
+        target.appendChild(link);
       }
     }
 
-    Selector.updatePods()
+    Selector.updatePods();
   }
 
   return {
@@ -105,80 +112,124 @@ var PodLoader = (function() {
         generateList(pods);
       }
     }
-  }
-})()
+  };
+})();
 
-// Selector: Module to retrieve and modify user selection of pod
+// Selector: Module to retrieve and modify pod list and user selection
 var Selector = (function() {
   "use strict";
 
-  var pods, selected = -1
+  var pods, selected = -1;
+
+  function selectPod(index) {
+    if (index >= 0 && index < pods.length) {
+      if (pods[selected])
+        pods[selected].classList.remove("selected");
+
+      selected = index;
+      pods[selected].classList.add("selected");
+    }
+  }
 
   return {
     updatePods: function() {
-      pods = document.querySelectorAll(".pod-list a")
+      pods = document.querySelectorAll(".pod-list a");
+
+      for (var i = 0; i < pods.length; i++) {
+        pods[i].setAttribute("data-index", i);
+
+        pods[i].onclick = function(e) {
+          var event = window.event ? window.event : e;
+          event.preventDefault();
+
+          selectPod(this.getAttribute("data-index"));
+          Redirection.go();
+        }
+      }
     },
 
     selected: function() {
-      return pods[selected]
+      return pods[selected];
     },
 
     selectNext: function() {
-      if (selected >= 0) pods[selected].classList.remove("selected")
-
-      if (++selected == pods.length)
-        --selected
-
-      pods[selected].classList.add("selected")
-
-      return this.selected()
+      selectPod(selected + 1);
+      return this.selected();
     },
 
     selectPrev: function() {
-      pods[selected].classList.remove("selected")
-
-      if (--selected < 0)
-        ++selected
-
-      pods[selected].classList.add("selected")
-
-      return this.selected()
+      selectPod(selected - 1);
+      return this.selected();
     }
-  }
-})()
+  };
+})();
 
 // Keyboard: Module in charge of appropiate responses to keyboard events
 var Keyboard = (function() {
   "use strict";
 
-  const downKey = 40, upKey = 38
-  var target
+  const downKey = 40, upKey = 38;
 
   return {
     setEvents: function() {
-      target = document.querySelector(".search input")
+      var form = document.querySelector(".search");
+
+      form.onsubmit = function(e) {
+        var event = window.event ? window.event : e;
+        event.preventDefault();
+        Redirection.go();
+      }
+
+      var target = form.querySelector("input");
 
       // Detect up and down keys to move selected pod
       target.onkeydown = function(e) {
-        var event = window.event ? window.event : e
+        var event = window.event ? window.event : e;
 
         if (event.keyCode == downKey) {
-          Selector.selectNext().scrollIntoView(false)
+          Selector.selectNext().scrollIntoView(false);
         } else if (event.keyCode == upKey) {
-          Selector.selectPrev().scrollIntoView(false)
+          Selector.selectPrev().scrollIntoView(false);
         }
       }
 
-      target.focus()
+      target.focus();
     }
-  }
-})()
+  };
+})();
+
+var Redirection = (function() {
+  return {
+    go: function() {
+      var pod = Selector.selected().getAttribute("data-pod-url"),
+        useMarkdown = document.querySelector("#markdown").checked,
+        useShortened = document.querySelector("#shorten").checked,
+        rememberChoice = document.querySelector("#remember").checked;
+
+      var url = useShortened ? Parameters.shortened : Parameters.url,
+        title = useMarkdown ?
+          ("[" + Parameters.title + "]" + "(" + url + ")") :
+          Parameters.title;
+
+      if (useMarkdown)
+        url = "";
+
+      var bookmarklet = pod + "/bookmarklet?title=" +
+        encodeURIComponent(title) +
+        "&url=" + encodeURIComponent(url) +
+        (Parameters.notes.length > 0 ? ("&notes=" + Parameters.notes) : "") +
+        "&jump=doclose";
+
+      location.href = bookmarklet;
+    }
+  };
+})();
 
 window.onload = function() {
   "use strict";
 
-  PodLoader.loadPods()
-  Selector.updatePods()
-  Selector.selectNext()
-  Keyboard.setEvents()
-}
+  PodLoader.loadPods();
+  Selector.updatePods();
+  Selector.selectNext();
+  Keyboard.setEvents();
+};

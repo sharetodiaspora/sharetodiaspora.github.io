@@ -12,27 +12,23 @@
       <div class="head-title" data-l10n-id="sharingtitle">Sharing</div>
 
       <div class="details">
-        <div class="title">The Diaspora* Foundation</div>
+        <div class="title">The diaspora* Project</div>
         <div class="url">diasporafoundation.org</div>
       </div>
     </header>
 
     <div class="wrapper">
-      <div class="search">
+      <form class="search">
         <input type="search" name="podname" value="" placeholder="Search or enter pod">
-      </div>
+      </form>
 
       <div class="pod-list">
-        <a href="">joindiaspora.com</a>
-        <a href="">diasp.de</a>
-        <a href="">diasp.org</a>
-        <a href="">diasporargentina.com.ar</a>
       </div>
 
       <div class="options">
-        <label><input type="checkbox"> Markdown</label>
-        <label><input type="checkbox"> Shorten URL</label>
-        <label><input type="checkbox"> Don't ask again</label>
+        <label><input id="markdown" type="checkbox"> Markdown</label>
+        <label><input id="shorten" type="checkbox"> Shorten URL</label>
+        <label><input id="remember" type="checkbox"> Don't ask again</label>
       </div>
     </div>
   </body>
