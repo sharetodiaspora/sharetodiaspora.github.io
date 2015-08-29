@@ -25,18 +25,18 @@ var Parameters = (function() {
     urlautolist: par("urlautolist"),
     shortened: null,
 
-    shorten: function() {
+    shorten: function(callback) {
       if (!this.shortened) {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "http://api.bitly.com/v3/shorten?login=bartimeo&apiKey=R_5fe8386a052e3f3d6ece604eab0c59db&format=txt&domain=j.mp&longUrl=" + url);
+        xhr.open("GET", "https://api-ssl.bitly.com/v3/shorten?login=bartimeo&apiKey=R_5fe8386a052e3f3d6ece604eab0c59db&format=txt&domain=j.mp&longUrl=" + encodeURIComponent(this.url));
 
         xhr.onreadystatechange = function() {
           if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-              console.log(xhr.responseText);
-              this.shortened = decodeURIComponent(encodeURIComponent(xhr.responseText).replace("%0A",""));
+              Parameters.shortened = decodeURIComponent(encodeURIComponent(xhr.responseText).replace("%0A",""));
+              callback();
             } else {
-              console.log("Error:", xhr);
+              console.error(xhr);
             }
           }
         }
@@ -223,14 +223,16 @@ var Selector = (function() {
   };
 })();
 
-// Keyboard: Module in charge of appropiate responses to keyboard events
-var Keyboard = (function() {
+// EventHandler: Module in charge of appropiate responses to keyboard
+// events and changes in options
+var EventHandler = (function() {
   "use strict";
 
   const downKey = 40, upKey = 38;
 
   return {
     setEvents: function() {
+      // Redirection when enter key is pressed
       var form = document.querySelector(".search");
 
       form.onsubmit = function(e) {
@@ -239,9 +241,9 @@ var Keyboard = (function() {
         Redirection.go();
       }
 
+      // Detect up and down keys to move selected pod
       var target = form.querySelector("input");
 
-      // Detect up and down keys to move selected pod
       target.onkeydown = function(e) {
         var event = window.event ? window.event : e;
 
@@ -258,6 +260,20 @@ var Keyboard = (function() {
 
       Selector.filter(target.value);
       target.select();
+
+      // Shorten link when corresponding option is selected
+      document.querySelector("#shorten").onchange = function() {
+        if (this.checked) {
+          if (!Parameters.shortened)
+            Parameters.shorten(function() {
+              document.querySelector(".url").textContent = Parameters.shortened;
+            });
+          else
+            document.querySelector(".url").textContent = Parameters.shortened;
+        } else {
+          document.querySelector(".url").textContent = Parameters.url;
+        }
+      };
     }
   };
 })();
@@ -294,6 +310,6 @@ window.onload = function() {
   "use strict";
 
   PodLoader.loadPods();
-  Keyboard.setEvents();
+  EventHandler.setEvents();
   Parameters.displayUI();
 };
