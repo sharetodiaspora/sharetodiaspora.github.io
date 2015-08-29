@@ -116,6 +116,7 @@ body {
 
       a {
         display: block;
+        cursor: pointer;
         margin: 0 0 $vertpadding;
         padding: $vertpadding $sidepadding;
 
@@ -126,9 +127,21 @@ body {
 
         transition: box-shadow .15s ease, background .15s ease, color .15s ease;
 
+        &.hidden {
+          display: none;
+        }
+
         &.selected {
           background: $accent;
           box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
+        }
+
+        &.custom {
+          border-color: darken(complement($accent), 20%);
+
+          &.selected {
+            background: complement($accent);
+          }
         }
 
         &:hover {
