@@ -1,0 +1,8 @@
+<sharing "Sharing">
+<search """
+  <input placeholder="Search or enter pod">
+""">
+<markdown "Use Markdown syntax for link">
+<shorten "Shorten link (j.mp)">
+<remember "Remember my choice, don't ask again">
+<nosuggest "Don't suggest pods">

@@ -1,0 +1,8 @@
+<sharing "Udostępnianie">
+<search """
+  <input placeholder="Search or enter pod">
+""">
+<markdown "Użyj Markdowna">
+<shorten "Skróć za pomocą j.mp">
+<remember "Zapamiętaj mój wybór, nie pytaj ponownie">
+<nosuggest "Nigdy nie zapamiętuj moich 3 ostatnich podów">
