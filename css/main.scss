@@ -161,6 +161,7 @@ body {
 
       @media screen and (min-width: $tabletmode) {
         float: left;
+        clear: left;
         display: inline-block;
         width: 40%;
       }
