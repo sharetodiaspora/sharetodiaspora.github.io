@@ -131,12 +131,17 @@ body {
           display: none;
         }
 
+        &.memorized {
+          border-color: darken($accent, 30%);
+        }
+
         &.selected {
           background: $accent;
           box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
         }
 
         &.custom {
+          font-weight: bold;
           border-color: darken(complement($accent), 20%);
 
           &.selected {
