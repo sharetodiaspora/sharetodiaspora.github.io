@@ -20,7 +20,7 @@ var Parameters = (function() {
     title: par("title"),
     url: par("url"),
     notes: par("notes"),
-    redir: par("redirect"),
+    redirect: par("redirect"),
     reloadPods: par("refresh"),
     urlautolist: par("urlautolist"),
     shortened: null,
@@ -291,14 +291,17 @@ var EventHandler = (function() {
         document.querySelector(".search input").focus();
       };
 
+      document.querySelector("#remember").checked = Memory.direct() ? "checked" : "";
+
       document.querySelector("#remember").onchange = function() {
+        Memory.direct(this.checked);
         document.querySelector(".search input").focus();
       };
 
       document.querySelector("#nosuggest").checked = Memory.suggest() ? "" : "checked";
 
       document.querySelector("#nosuggest").onchange = function() {
-        Memory.suggest(this.checked);
+        Memory.suggest(!this.checked);
         document.querySelector(".search input").focus();
       };
     }
@@ -317,7 +320,7 @@ var Memory = (function() {
 
     suggest: function(value) {
       if (value !== undefined) {
-        localStorage.forget = value;
+        localStorage.forget = !value;
 
         if (value === false) {
           var keys = ["lastPod", "lastPod2", "lastPod3"];
@@ -390,7 +393,7 @@ var Redirection = (function() {
 window.onload = function() {
   "use strict";
 
-  if (Memory.direct()) {
+  if (Memory.direct() && Parameters.redirect !== "false") {
     Redirection.go(Memory.direct());
   }
   PodLoader.loadPods();
