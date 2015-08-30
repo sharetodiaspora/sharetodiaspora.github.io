@@ -4,12 +4,14 @@
     <title>Share on diaspora*</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8" />
+    <link rel="localization" href="locales/manifest.json" />
     <link rel="stylesheet" href="css/main.css" />
     <script src="js/share.js" type="text/javascript"></script>
+    <script defer src="js/l20n.min.js" type="text/javascript"></script>
   </head>
   <body>
     <header>
-      <div class="head-title" data-l10n-id="sharingtitle">Sharing</div>
+      <div class="head-title" data-l10n-id="sharing">Sharing</div>
 
       <div class="details">
         <div class="title"></div>
@@ -18,7 +20,7 @@
     </header>
 
     <div class="wrapper">
-      <form class="search">
+      <form class="search" data-l10n-id="search">
         <input type="search" name="podname" value="" placeholder="Search or enter pod">
       </form>
 
@@ -26,10 +28,22 @@
       </div>
 
       <div class="options">
-        <label><input id="markdown" type="checkbox"> Markdown</label>
-        <label><input id="shorten" type="checkbox"> Shorten URL</label>
-        <label><input id="remember" type="checkbox"> Don't ask again</label>
-        <label><input id="nosuggest" type="checkbox"> Don't suggest pods</label>
+        <label>
+          <input id="markdown" type="checkbox">
+          <span data-l10n-id="markdown">Markdown</span>
+        </label>
+        <label>
+          <input id="shorten" type="checkbox">
+          <span data-l10n-id="shorten">Shorten URL</span>
+        </label>
+        <label>
+          <input id="remember" type="checkbox">
+          <span data-l10n-id="remember">Don't ask again</span>
+        </label>
+        <label>
+          <input id="nosuggest" type="checkbox">
+          <span data-l10n-id="nosuggest">Don't suggest pods</span>
+        </label>
       </div>
     </div>
   </body>
