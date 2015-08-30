@@ -67,7 +67,7 @@ var PodLoader = (function() {
         var link = document.createElement("a");
 
         link.href = "https://" + pods[i] + "/stream";
-        link.setAttribute("data-pod-url", "http://" + pods[i]);
+        link.setAttribute("data-pod-url", pods[i]);
         link.textContent = pods[i];
 
         podList.push(link);
@@ -75,6 +75,7 @@ var PodLoader = (function() {
     }
 
     Selector.insertPods(podList);
+    Selector.filter(document.querySelector(".search input").value);
   }
 
   return {
@@ -130,15 +131,24 @@ var Selector = (function() {
       pods = podList;
       var listNode = document.querySelector(".pod-list");
 
-      for (var i = 0; i < pods.length; i++) {
-        pods[i].setAttribute("data-index", i);
+      // Retrieve last pods used
+      if (Memory.suggest()) {
+        var memo = Memory.getPods();
 
+        for (var i = memo.length - 1; i >= 0; i--) {
+          var newLink = document.createElement("a");
+          newLink.classList.add("memorized");
+          newLink.textContent = memo[i];
+          newLink.setAttribute("data-pod-url", memo[i]);
+          pods.unshift(newLink);
+        }
+      }
+
+      for (var i = 0; i < pods.length; i++) {
         pods[i].onclick = function(e) {
           var event = window.event ? window.event : e;
           event.preventDefault();
-
-          selectPod(this.getAttribute("data-index"));
-          Redirection.go();
+          Redirection.go(this.getAttribute("data-pod-url"));
         }
 
         listNode.appendChild(pods[i]);
@@ -258,7 +268,6 @@ var EventHandler = (function() {
         Selector.filter(this.value);
       }
 
-      Selector.filter(target.value);
       target.select();
 
       // Shorten link when corresponding option is selected
@@ -273,7 +282,75 @@ var EventHandler = (function() {
         } else {
           document.querySelector(".url").textContent = Parameters.url;
         }
+
+        document.querySelector(".search input").focus();
       };
+
+      // Let search input always capture focus
+      document.querySelector("#markdown").onchange = function() {
+        document.querySelector(".search input").focus();
+      };
+
+      document.querySelector("#remember").onchange = function() {
+        document.querySelector(".search input").focus();
+      };
+
+      document.querySelector("#nosuggest").checked = Memory.suggest() ? "" : "checked";
+
+      document.querySelector("#nosuggest").onchange = function() {
+        Memory.suggest(this.checked);
+        document.querySelector(".search input").focus();
+      };
+    }
+  };
+})();
+
+// Memory: Manages local stored values such as memorized pods and options
+var Memory = (function() {
+  return {
+    direct: function(value) {
+      if (value !== undefined)
+        localStorage.remember = value;
+
+      return localStorage.remember == "true" && localStorage.lastPod;
+    },
+
+    suggest: function(value) {
+      if (value !== undefined) {
+        localStorage.forget = value;
+
+        if (value === false) {
+          var keys = ["lastPod", "lastPod2", "lastPod3"];
+
+          for (var k in keys)
+            localStorage.removeItem(keys[k]);
+        }
+      }
+
+      return !localStorage.forget || localStorage.forget == "false"
+    },
+
+    getPods: function() {
+      var keys = ["lastPod", "lastPod2", "lastPod3"],
+        memorized = [];
+
+      for (var k in keys) {
+        if (localStorage[keys[k]])
+          memorized.push(localStorage[keys[k]]);
+      }
+
+      return memorized;
+    },
+
+    add: function(newPod) {
+      if (localStorage.lastPod && localStorage.lastPod !== newPod) {
+        if (localStorage.lastPod2 && localStorage.lastPod2 !== newPod)
+          localStorage.lastPod3 = localStorage.lastPod2;
+
+        localStorage.lastPod2 = localStorage.lastPod;
+      }
+
+      localStorage.lastPod = newPod;
     }
   };
 })();
@@ -281,11 +358,10 @@ var EventHandler = (function() {
 // Redirection: This module composes and redirects to the appropriate url
 var Redirection = (function() {
   return {
-    go: function() {
-      var pod = Selector.selected().getAttribute("data-pod-url"),
+    go: function(p) {
+      var pod = p || Selector.selected().getAttribute("data-pod-url"),
         useMarkdown = document.querySelector("#markdown").checked,
-        useShortened = document.querySelector("#shorten").checked,
-        rememberChoice = document.querySelector("#remember").checked;
+        useShortened = document.querySelector("#shorten").checked;
 
       var url = useShortened ? Parameters.shortened : Parameters.url,
         title = useMarkdown ?
@@ -295,11 +371,16 @@ var Redirection = (function() {
       if (useMarkdown)
         url = "";
 
-      var bookmarklet = pod + "/bookmarklet?title=" +
+      var bookmarklet = "http://" + pod + "/bookmarklet?title=" +
         encodeURIComponent(title) +
         "&url=" + encodeURIComponent(url) +
         (Parameters.notes.length > 0 ? ("&notes=" + Parameters.notes) : "") +
         "&jump=doclose";
+
+      // Remember this pod
+      if (Memory.suggest()) {
+        Memory.add(pod);
+      }
 
       location.href = bookmarklet;
     }
@@ -309,6 +390,9 @@ var Redirection = (function() {
 window.onload = function() {
   "use strict";
 
+  if (Memory.direct()) {
+    Redirection.go(Memory.direct());
+  }
   PodLoader.loadPods();
   EventHandler.setEvents();
   Parameters.displayUI();
