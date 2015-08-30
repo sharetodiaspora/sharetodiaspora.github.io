@@ -22,7 +22,6 @@ var Parameters = (function() {
     notes: par("notes"),
     redirect: par("redirect"),
     reloadPods: par("refresh"),
-    urlautolist: par("urlautolist"),
     shortened: null,
 
     shorten: function(callback) {
@@ -80,7 +79,7 @@ var PodLoader = (function() {
 
   return {
     loadPods: function() {
-      if (localStorage.podslisttime && ((parseInt(localStorage.podslisttime) + 86400) > now)) {
+      if (localStorage.podslisttime && ((parseInt(localStorage.podslisttime) + 86400) > now) && Parameters.reloadPods !== "true") {
         var pods = JSON.parse(localStorage.podslist);
         generateList(pods);
       } else {
