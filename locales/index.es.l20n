@@ -1,7 +1,5 @@
 <sharing "Compartiendo">
-<search """
-  <input placeholder="Buscar o introducir pod">
-""">
+<search placeholder:"Buscar o introducir pod">
 <markdown "Usar sintaxis Markdown para el enlace">
 <shorten "Acortar enlace (j.mp)">
 <remember "Recordar mi elección, no preguntar de nuevo">

@@ -1,7 +1,5 @@
 <sharing "Делимся">
-<search """
-  <input placeholder="Search or enter pod">
-""">
+<search placeholder:"Search or enter pod">
 <markdown "Используй разметку Markdown для ссылки">
 <shorten "Сократи URL (j.mp)">
 <remember "Запомни мой выбор и не спрашивай снова">
