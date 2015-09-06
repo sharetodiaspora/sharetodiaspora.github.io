@@ -22,26 +22,6 @@ var Parameters = (function() {
     notes: par("notes"),
     redirect: par("redirect"),
     reloadPods: par("refresh"),
-    shortened: null,
-
-    shorten: function(callback) {
-      if (!this.shortened) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "https://api-ssl.bitly.com/v3/shorten?login=bartimeo&apiKey=R_5fe8386a052e3f3d6ece604eab0c59db&format=txt&domain=j.mp&longUrl=" + encodeURIComponent(this.url));
-
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-              Parameters.shortened = decodeURIComponent(encodeURIComponent(xhr.responseText).replace("%0A",""));
-              callback();
-            } else {
-              console.error(xhr);
-            }
-          }
-        }
-        xhr.send();
-      }
-    },
 
     displayUI: function() {
       document.querySelector(".title").textContent = this.title.length > 0 ?
@@ -269,22 +249,6 @@ var EventHandler = (function() {
 
       target.select();
 
-      // Shorten link when corresponding option is selected
-      document.querySelector("#shorten").onchange = function() {
-        if (this.checked) {
-          if (!Parameters.shortened)
-            Parameters.shorten(function() {
-              document.querySelector(".url").textContent = Parameters.shortened;
-            });
-          else
-            document.querySelector(".url").textContent = Parameters.shortened;
-        } else {
-          document.querySelector(".url").textContent = Parameters.url;
-        }
-
-        document.querySelector(".search input").focus();
-      };
-
       // Let search input always capture focus
       document.querySelector("#markdown").onchange = function() {
         document.querySelector(".search input").focus();
@@ -310,7 +274,7 @@ var EventHandler = (function() {
 // Memory: Manages local stored values such as memorized pods and options
 var Memory = (function() {
   "use strict";
-  
+
   return {
     direct: function(value) {
       if (value !== undefined)
@@ -366,16 +330,12 @@ var Redirection = (function() {
   return {
     go: function(p) {
       var pod = p || Selector.selected().getAttribute("data-pod-url"),
-        useMarkdown = document.querySelector("#markdown").checked,
-        useShortened = document.querySelector("#shorten").checked;
+        useMarkdown = document.querySelector("#markdown").checked;
 
-      var url = useShortened ? Parameters.shortened : Parameters.url,
+      var url = useMarkdown ? "" : Parameters.url,
         title = useMarkdown ?
-          ("[" + Parameters.title + "]" + "(" + url + ")") :
+          ("[" + Parameters.title + "]" + "(" + Parameters.url + ")") :
           Parameters.title;
-
-      if (useMarkdown)
-        url = "";
 
       var bookmarklet = "http://" + pod + "/bookmarklet?title=" +
         encodeURIComponent(title) +
