@@ -309,6 +309,8 @@ var EventHandler = (function() {
 
 // Memory: Manages local stored values such as memorized pods and options
 var Memory = (function() {
+  "use strict";
+  
   return {
     direct: function(value) {
       if (value !== undefined)
@@ -359,6 +361,8 @@ var Memory = (function() {
 
 // Redirection: This module composes and redirects to the appropriate url
 var Redirection = (function() {
+  "use strict";
+
   return {
     go: function(p) {
       var pod = p || Selector.selected().getAttribute("data-pod-url"),
