@@ -20,10 +20,10 @@ var Parameters = (function() {
     title: par("title"),
     url: par("url"),
     notes: par("notes"),
-    redirect: par("redirect"),
-    reloadPods: par("refresh"),
+    redirect: par("redirect") !== "false" || par("nojump") === "1",
+    reloadPods: par("refresh") === "true",
 
-    displayUI: function() {
+    display: function() {
       document.querySelector(".title").textContent = this.title.length > 0 ?
         this.title : "[no title]";
       document.querySelector(".url").textContent = this.url.length > 0 ?
@@ -295,7 +295,7 @@ var Memory = (function() {
         }
       }
 
-      return !localStorage.forget || localStorage.forget == "false"
+      return !localStorage.forget || localStorage.forget == "false";
     },
 
     getPods: function() {
@@ -356,10 +356,14 @@ var Redirection = (function() {
 window.onload = function() {
   "use strict";
 
-  if (Memory.direct() && Parameters.redirect !== "false") {
+  if (Parameters.title === "" && Parameters.url === "" && Parameters.redirect) {
+    location.href = "/about";
+  }
+
+  if (Memory.direct() && Parameters.redirect) {
     Redirection.go(Memory.direct());
   }
   PodLoader.loadPods();
   EventHandler.setEvents();
-  Parameters.displayUI();
+  Parameters.display();
 };
