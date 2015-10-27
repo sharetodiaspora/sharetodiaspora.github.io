@@ -337,7 +337,7 @@ var Redirection = (function() {
           ("[" + Parameters.title + "]" + "(" + Parameters.url + ")") :
           Parameters.title;
 
-      var bookmarklet = "http://" + pod + "/bookmarklet?title=" +
+      var bookmarklet = location.protocol + "//" + pod + "/bookmarklet?title=" +
         encodeURIComponent(title) +
         "&url=" + encodeURIComponent(url) +
         (Parameters.notes.length > 0 ? ("&notes=" + Parameters.notes) : "") +
