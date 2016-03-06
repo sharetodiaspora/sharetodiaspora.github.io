@@ -152,34 +152,41 @@
 					</li>
 				</ul>
 
-				<h4>Firefox Social API Extension</h4>
-				Add a native Share button to the Share Services of Firefox. Click "Share This Page" from the browser
-				toolbar to open the save dialog. Just click this button
-				<button onclick="activateSocialFeature(this)">Activate Diaspora* Sharing Service</button> and then choose
-				<em>Enable Services</em>.
+				<h4>Add to Firefox</h4>
+				Firefox now supports <a href="https://activations.cdn.mozilla.net/en-US/diaspora.html">diaspora* as a sharing service</a>! These are other alternatives to share links from Firefox:
 
-				<script>
-				  var data = {
-				    "name": "Share to Diaspora*",
-				    "description": "Diaspora* is a social network where you keep control.",
-				    "author": "kemenaran",
-				    "homepageURL": "https://sharetodiaspora.github.io/about/",
-				    "iconURL":   "https://sharetodiaspora.github.io/assets/diaspora-icon-16.png",
-				    "icon32URL": "https://sharetodiaspora.github.io/assets/diaspora-icon-32.png",
-				    "icon64URL": "https://sharetodiaspora.github.io/assets/diaspora-icon-64.png",
-				    "shareURL": "https://sharetodiaspora.github.io/?url=%{url}&title=%{title}&notes=%{text}",
-				    "version": "1.0.0"
-				  };
-				  function activateSocialFeature(node) {
-				    var event = new CustomEvent("ActivateSocialFeature");
-				    node.setAttribute("data-service", JSON.stringify(data));
-				    node.dispatchEvent(event);
-				  }
-				</script>
+				<ul>
+					<li>
+						Add a native Share button to the Share Services of Firefox. Click "Share This Page" from the browser
+						toolbar to open the save dialog. Just click this button
+						<button onclick="activateSocialFeature(this)">Activate Diaspora* Sharing Service</button> and then choose
+						<em>Enable Services</em>.
 
-				<h4>Add-on for Firefox</h4>
-				<a href="https://addons.mozilla.org/es/firefox/addon/diaspora-advanced-sharer/">diaspora* Advanced Sharer</a>
-				by <a href="https://iliketoast.net/u/jaywink">Jason Robinson</a> adds a sharing button to Mozilla Firefox.
+						<script>
+						  var data = {
+						    "name": "Share to Diaspora*",
+						    "description": "Diaspora* is a social network where you keep control.",
+						    "author": "kemenaran",
+						    "homepageURL": "https://sharetodiaspora.github.io/about/",
+						    "iconURL":   "https://sharetodiaspora.github.io/assets/diaspora-icon-16.png",
+						    "icon32URL": "https://sharetodiaspora.github.io/assets/diaspora-icon-32.png",
+						    "icon64URL": "https://sharetodiaspora.github.io/assets/diaspora-icon-64.png",
+						    "shareURL": "https://sharetodiaspora.github.io/?url=%{url}&title=%{title}&notes=%{text}",
+						    "version": "1.0.0"
+						  };
+						  function activateSocialFeature(node) {
+						    var event = new CustomEvent("ActivateSocialFeature");
+						    node.setAttribute("data-service", JSON.stringify(data));
+						    node.dispatchEvent(event);
+						  }
+						</script>
+					</li>
+					<li>
+						Add as an addon:
+						<a href="https://addons.mozilla.org/es/firefox/addon/diaspora-advanced-sharer/">diaspora* Advanced Sharer</a>
+						by <a href="https://iliketoast.net/u/jaywink">Jason Robinson</a>.
+					</li>
+				</ul>
 			</article>
 
 			<article>
