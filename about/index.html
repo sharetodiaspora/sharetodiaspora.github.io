@@ -138,9 +138,19 @@
 					</ul>
 				</div>
 
-				<h4>Bookmarklet</h4>
-				Instead of using several bookmarklets for several pods, you can just drag this one:
-				<a href="javascript:(function(){f='http://sharetodiaspora.github.io/?url='+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent(document.title)+'&notes='+encodeURIComponent(''+(window.getSelection?window.getSelection():document.getSelection?document.getSelection():document.selection.createRange().text))+'&v=1&';a=function(){if(!window.open(f+'noui=1&jump=doclose','diasporav1','location=yes,links=no,scrollbars=yes,toolbar=no,width=620,height=550'))location.href=f+'jump=yes'};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()">Share on diaspora*</a> to your bookmarks bar.
+				<h4>Bookmarklets</h4>
+				Instead of using several bookmarklets for several pods, you can just add one of these to your bookmarks:
+
+				<ul>
+					<li>
+						Adapted from the classic bookmarklet from diaspora*:
+						<a href="javascript:(function(){f='http://sharetodiaspora.github.io/?url='+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent(document.title)+'&notes='+encodeURIComponent(''+(window.getSelection?window.getSelection():document.getSelection?document.getSelection():document.selection.createRange().text))+'&v=1&';a=function(){if(!window.open(f+'noui=1&jump=doclose','diasporav1','location=yes,links=no,scrollbars=yes,toolbar=no,width=620,height=550'))location.href=f+'jump=yes'};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()">Share on diaspora*</a>
+					</li>
+					<li>
+						Better bookmarklet for image sharing:
+						<a href="javascript:(function(){image=document.querySelector('meta[property="og:image"]')&&document.querySelector('meta[property="og:image"]').getAttribute('content');f='http://sharetodiaspora.github.io/?title='+encodeURIComponent((image?'**'+document.title+'** ':'')+'!['+(image?document.title:'Image')+']('+(image||window.location.href)+')')+'&v=1&';a=function(){if(!window.open(f+'noui=1&jump=doclose&url='+encodeURIComponent(window.location.href),'diasporav1','location=yes,links=no,scrollbars=yes,toolbar=no,width=620,height=550'))location.href=f+'jump=yes'};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()">Share image on diaspora*</a>
+					</li>
+				</ul>
 
 				<h4>Firefox Social API Extension</h4>
 				Add a native Share button to the Share Services of Firefox. Click "Share This Page" from the browser
@@ -185,6 +195,7 @@
 					<li><a href="https://diasp.eu/u/muggenhor">Giel van Schijndel</a></li>
 					<li><a href="https://framasphere.org/u/sebastienadam">Sébastien Adam</a></li>
 					<li><a href="https://github.com/kemenaran">Pierre de la Morinerie</a></li>
+					<li><a href="https://github.com/tukkek">tukkek</a></li>
 				</ul>
 
 				<p></p>
