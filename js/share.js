@@ -59,6 +59,12 @@ var PodLoader = (function() {
 
   return {
     loadPods: function() {
+      // pod_list is static, loaded from /js/podlist.js
+      if (pod_list)
+        generateList(pod_list);
+      else
+        generateList([]);
+      /*
       if (localStorage.podslisttime && ((parseInt(localStorage.podslisttime) + 86400) > now) && Parameters.reloadPods !== "true") {
         var pods = JSON.parse(localStorage.podslist);
         generateList(pods);
@@ -66,7 +72,7 @@ var PodLoader = (function() {
         var script = document.createElement('script');
         script.src = 'https://podupti.me/api.php?key=4r45tg&format=json&method=jsonp&callback=PodLoader.fromPoduptime';
         document.head.appendChild(script);
-      }
+      }*/
     },
 
     fromPoduptime: function(result) {
