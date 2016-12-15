@@ -93,7 +93,7 @@ var PodLoader = (function() {
 var Selector = (function() {
   "use strict";
 
-  var pods, visible = [], selected = -1;
+  var pods = [], visible = [], selected = -1;
 
   function selectPod(index) {
     if (index >= 0 && index < visible.length) {
@@ -104,6 +104,12 @@ var Selector = (function() {
       visible[selected].classList.add("selected");
     }
   }
+
+  var clicked = function(e) {
+    var event = window.event ? window.event : e;
+    event.preventDefault();
+    Redirection.go(this.getAttribute("data-pod-url"));
+  };
 
   return {
     insertPods: function(podList) {
@@ -124,11 +130,7 @@ var Selector = (function() {
       }
 
       for (var i = 0; i < pods.length; i++) {
-        pods[i].onclick = function(e) {
-          var event = window.event ? window.event : e;
-          event.preventDefault();
-          Redirection.go(this.getAttribute("data-pod-url"));
-        }
+        pods[i].onclick = clicked;
 
         listNode.appendChild(pods[i]);
       }
@@ -150,6 +152,8 @@ var Selector = (function() {
 
         customLink.textContent = query;
         customLink.setAttribute("data-pod-url", query);
+        customLink.onclick = clicked;
+
         visible.push(customLink);
       } else if (customLink) {
         customLink.parentNode.removeChild(customLink);
@@ -186,6 +190,7 @@ var Selector = (function() {
         customLink = document.createElement("a");
         customLink.classList.add("custom");
         document.querySelector(".pod-list").insertBefore(customLink, pods[0]);
+        customLink.onclick = clicked;
         visible.push(customLink);
         customLink.textContent = query;
         customLink.setAttribute("data-pod-url", query);
