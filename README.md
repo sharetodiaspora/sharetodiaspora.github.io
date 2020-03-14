@@ -33,6 +33,11 @@ Any fixes and improvements are greatly appreciated. Feel
 free to [fork the project](https://github.com/sharetodiaspora/sharetodiaspora.github.com/fork)
 and tinker with it :)
 
+The list of pods are in `/js/podlist.js` so if you need to change
+something please create a PR! The easiest way is to click the "edit"
+icon in GitHub after selecting the file: it automagically fork, create 
+a PR and submits it.
+
 ### Translations
 We're currently using [L20n](https://github.com/l20n/l20n.js) 
 by Mozilla for localization. To contribute a translation the 
